@@ -1,0 +1,13 @@
+* {
+  bg: "#1E1E2E";
+  alt: "#313244";
+  nextalt: "#585b70";
+  fg: "#CDD6F4";
+  red: "#F38BA8";
+  green: "#A6E3A1";
+  yellow: "#F9E2AF";
+  blue: "#89B4FA";
+  magenta: "#F5C2E7";
+  cyan: "#94E2D5";
+  black: "#BAC2DE"; 
+}

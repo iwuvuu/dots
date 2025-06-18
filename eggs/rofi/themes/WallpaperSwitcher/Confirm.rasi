@@ -1,0 +1,132 @@
+
+
+/*****----- Global Properties -----*****/
+
+* {
+  font: "FiraCode Nerd Font Bold 12";
+  bg: #181926;
+  alt: #262737;
+  nextalt: #585b70;
+  fg: #CDD6F4;
+  red: #F38BA8;
+  green: #A6E3A1;
+  yellow: #F9E2AF;
+  blue: #89B4FA;
+  magenta: #F5C2E7;
+  cyan: #94E2D5;
+  black: #BAC2DE;
+
+  text-color: #CDD6F4;
+  base: #1e1e2e;
+  overlay0: #6c7086;
+  surface1: #45475a;
+  surface0: #313244;
+  mantle: #181825;
+  crust: #11111b;
+  muave: #cba6f7;
+
+  normal-background: @crust;
+  normal-foreground: @fg;
+  alternate-normal-background: @crust;
+  alternate-normal-foreground: @fg;
+  selected-normal-background: @muave;
+  selected-normal-foreground: @crust;
+  separatorcolor: @bg;
+}
+
+/*****----- Main Window -----*****/
+window {
+    location:                    center;
+    anchor:                      center;
+    width:                       350px;
+    height:                      200px;
+
+    enabled:                     true;
+    padding:                     20px;
+    border-radius:               20px;
+    background-color:            @base;
+    border: 3px;
+    border-color: @muave;
+}
+
+/*****----- Main Box -----*****/
+mainbox {
+    enabled:                     true;
+    spacing:                     20px;
+    margin:                      0px;
+    padding:                     20px;
+    border-radius:               20px;
+    background-color:            transparent;
+    children:                    [ "boxik1", "boxik2" ];
+}
+
+boxik1 {
+  children: [ "textbox-custom" ];
+}
+
+textbox-custom {
+  content: "Set the wallpaper permanently?";
+  expand: false;
+  text-color: @text-color;
+  vertical-align: 0.5;
+  horizontal-align: 0.5;
+
+}
+
+boxik2 {
+  children: [ "listview" ];
+}
+
+/*****----- Listview -----*****/
+listview {
+    enabled:                     true;
+    columns:                     2;
+    lines:                       2;
+    cycle:                       true;
+    dynamic:                     false;
+    scrollbar:                   false;
+    layout:                      horizontal;
+    reverse:                     false;
+    fixed-height:                true;
+    fixed-columns:               true;
+    expand:                      false;
+    fixed-width:                 false;
+    horizontal-align: 0.5;
+    
+    spacing:                     10px;
+    margin:                      0px;
+    padding:                     0px 0px 0px 10px;
+    border:                      0px solid;
+    border-radius:               0px;
+    border-color:                @red;
+    background-color:            transparent;
+    text-color:                  @text-color;
+    cursor:                      "default";
+}
+scrollbar {
+    enabled:                     false;
+   }
+
+/*****----- Elements -----*****/
+element {
+    enabled:                     true;
+    spacing:                     10px;
+    margin:                      0px;
+    padding:                     10px;
+    border-radius:               10px;
+    border-color:                @crust;
+    background-color:            @red;
+    text-color:                  @fg;
+    orientation:                 horizontal;
+    cursor:                      pointer;
+}
+element-text {
+    width: 100px;
+    background-color:            transparent;
+    text-color:                  inherit;
+    highlight:                   inherit;
+    cursor:                      inherit;
+    vertical-align:              0.5;
+    horizontal-align:            0.5;
+}
+

@@ -1,0 +1,187 @@
+/*===== Global properties =====*/
+* {
+  /* user variables */
+  font: "FiraCode Nerd Font propo 11";
+  bigfont: "FiraCode Nerd Font Bold 12";
+  bigfont2: "FiraCode Nerd Font Bold 10";
+  smallfont: "FiraCode Nerd Font Italic 12";
+  bg: #181926;
+  alt: #262737;
+  nextalt: #585b70;
+  fg: #CDD6F4;
+  red: #F38BA8;
+  green: #A6E3A1;
+  yellow: #F9E2AF;
+  blue: #89B4FA;
+  magenta: #F5C2E7;
+  cyan: #94E2D5;
+  black: #BAC2DE;
+
+  text-color: #CDD6F4;
+  base: #1e1e2e;
+  overlay0: #6c7086;
+  surface1: #45475a;
+  surface0: #313244;
+  mantle: #181825;
+  crust: #11111b;
+  muave: #cba6f7;
+
+
+  /* theme variables */
+  normal-background: @mantle;
+  normal-foreground: @fg;
+  alternate-normal-background: @mantle;
+  alternate-normal-foreground: @fg;
+  selected-normal-background: @surface1;
+  selected-normal-foreground: @fg;
+  separatorcolor: @base;
+}
+
+
+/*===== Main window =====*/
+window {
+  location: center;
+  anchor: center;
+  fullscreen: false;
+
+  height: 800px;
+  width: 1400px;
+
+  padding: 2em;
+  border-radius: 20px;
+  border: 3px;
+  border-color: @muave;
+
+  background-color: @base;
+}
+
+
+
+/*===== Main window =====*/
+mainbox {
+  enabled: true;
+
+  spacing: 2em;
+  orientation: vertical;
+
+  children: [ "inputbar", "content" ];
+}
+
+/*===== Inputbar =====*/
+inputbar{
+  enabled: true;
+
+  spacing: 1em;
+  background-color: @crust;
+  padding: 0.4em;
+  border-radius: 0.4em;
+
+  text-color: @text-color;
+
+  children: [ "prompt", "entry" ];
+}
+
+prompt {
+  enabled: true;
+  placeholder: " ";
+  font: @bigfont;
+  padding: 0em 0em 0em 0.4em;
+}
+
+entry {
+  text-color: @surface1;
+  font: @smallfont;
+  enabled: true;
+  cursor: text;
+  placeholder: "Search";
+  placeholder-color: inherit;
+}
+
+/*===== Content =====*/
+content {
+  orientation: horizontal;
+  spacing: 1em;
+  children: [ "listview", "selected-entry"];
+}
+
+selected-entry {
+  background-color: @mantle;
+  border-radius: 20px;
+
+  children: [ "icon-current-entry", "textbox-current-entry" ];
+}
+icon-current-entry {
+  expand: true;
+  size: 58%;
+}
+
+textbox-current-entry {
+  font: @bigfont2;
+  horizontal-align: 0.5;
+  vertical-align: 1;
+  text-color: @text-color;
+  padding: 20px;
+  background-color: @crust;
+}
+
+listview {
+  enabled: true;
+  fixed-columns: true;
+  fixed-lines: true;
+  flow: horizontal;
+  columns: 4;
+  lines: 7;
+  spacing: 1em;
+}
+
+scrollbar {
+  enabled: true;
+
+  handle-width: 7px;
+
+  border-radius: 5px;
+
+  handle-color: @muave;
+  background-color: @crust;
+}
+
+element {
+  orientation: vertical;
+  //padding: 0.3em;
+  border-radius: 20px;
+
+  children: [ "element-icon", "element-text" ];
+}
+
+element-icon {
+  size: calc(((100% - 7em) / 8 ));
+  horizontal-align: 0.5;
+  vertical-align: 0.5;
+}
+
+element-text {
+  padding: 0.2em;
+  background-color: @crust;
+  highlight: @muave;
+}
+element-text selected.normal {
+  background-color: @base;
+  text-color: @text-color;
+}
+element normal.normal {
+    background-color:            @mantle;
+    text-color:                  @text-color;
+    border-radius: 0.6em;
+}
+element alternate.normal {
+  background-color: @mantle;
+  border-radius: 0.6em;
+}
+element selected.normal {
+    border:                      3px 3px 3px 3px;
+    border-radius:               12px;
+    border-color:                @muave;
+    background-color:            @surface0;
+    text-color:                  @text-color;
+}
+

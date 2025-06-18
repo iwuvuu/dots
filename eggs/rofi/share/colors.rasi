@@ -1,0 +1,20 @@
+* {
+   background: #241f32;
+   foreground: #c2ffdf;
+   black-normal: #42395d;
+   black-bright: #75507b;
+   pink-normal: #a8757b;
+   pink-bright: #ffb8d1;
+   red-normal: #ff857f;
+   red-bright: #f1568e;
+   yellow-normal: #e6c000;
+   yellow-bright: #d5a425;
+   magenta-normal: #ae81ff;
+   magenta-bright: #c5a3ff;
+   purple-normal: #716799;
+   purple-bright: #8077a8;
+   cyan-normal: #c2ffdf;
+   cyan-bright: #c2ffff;
+   white-normal: #f8f8f2;
+   white-bright: #f8f8f0; 
+  }

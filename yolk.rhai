@@ -9,6 +9,16 @@ export let eggs = #{
 		templates: ["init.lua"],
 		enabled: true,
 	},
+	bin: #{
+		targets: "~/.local/bin",
+		templates: ["*.sh"],
+		enabled: true,
+	},
+	rofi: #{
+		targets: "~/.config/rofi",
+		templates: ["*.rasi"],
+		enabled: true,
+	},
 };
 
 const themes = #{

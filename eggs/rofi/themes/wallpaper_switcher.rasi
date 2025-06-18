@@ -1,0 +1,147 @@
+/*===== Global properties =====*/
+* {
+  /* user variables */
+  font: "FiraCode Nerd Font 10";
+  bg: #1E1E2E;
+  alt: #313244;
+  nextalt: #585b70;
+  fg: #CDD6F4;
+  red: #F38BA8;
+  green: #A6E3A1;
+  yellow: #F9E2AF;
+  blue: #89B4FA;
+  magenta: #F5C2E7;
+  cyan: #94E2D5;
+  black: #BAC2DE;
+
+    text-color: #CDD6F4;
+  base: #1e1e2e;
+  overlay0: #6c7086;
+  surface1: #45475a;
+  surface0: #313244;
+  mantle: #181825;
+  crust: #11111b;
+  muave: #cba6f7;
+
+
+  /* theme variables */
+  background-color: @bg;
+  text-color: @fg;
+
+  normal-background: @alt;
+  alternate-normal-background: @alt;
+  active-background: @fg;
+}
+
+window {
+    location: center;
+    anchor: center;
+    fullscreen: false;
+    width: 1400px;
+    height: 800px; 
+    background-color: @base;
+    padding:          2em;
+    children:         [ wrap, listview-split];
+    spacing:          1em;
+    border-radius: 20px;
+    border: 3px;
+    border-color: @muave;
+}
+
+/** We add an extra child to this if PREVIEW=true */
+listview-split {
+  orientation: horizontal;
+  spacing: 0.4em;
+  children: [listview];
+}
+
+scrollbar {
+    enabled:                     true;
+    handle-width:                7px;
+    border-radius:               5px;
+    background-color:            @alt;
+    handle-color: @fg;
+}
+
+
+wrap {
+    expand: false;
+    orientation: vertical;
+    children: [ inputbar, message ];
+    border-radius: 0.4em;
+    background-color: "@alt";
+}
+
+inputbar {
+  background-color: @alt;
+    spacing: 0.4em;
+    padding: 0.4em;
+    children: [ entry ];
+}
+entry {
+    placeholder: "  Search";
+    placeholder-color: @nextalt;
+}
+message {
+    background-color: @red;
+    border-color: @red;
+    border: 3px 0px 0px 0px;
+    padding: 0.4em;
+    spacing: 0.4em;
+}
+
+listview {
+    flow: horizontal;
+    fixed-columns: true;
+    columns: 3;
+    lines: 5;
+    spacing: 1.0em;
+}
+
+element {
+    orientation: vertical;
+    padding: 0.1em;
+
+    border: 3px;
+    border-radius: 0.4em;
+
+  children: [element-icon, element-text ];
+}
+element-icon {
+    size: calc(((100% - 8em) / 7 ));
+    horizontal-align: 0.5;
+    vertical-align: 0.5;
+}
+element-text {
+    horizontal-align: 0.5;
+    vertical-align: 0.5;
+  padding: 0.2em;
+}
+
+element selected {
+    border: 3px;
+    border-radius: 0.4em;
+    background-color: @nextalt;
+}
+
+
+/**
+ * Launching rofi with environment PREVIEW set to true
+ * will split the screen and show a preview widget.
+ */
+@media ( enabled: env(PREVIEW, false)) {
+  // preview widget
+  icon-current-entry {
+    expand:          true;
+    size:            60%;
+  }
+  // override the children of `listview-split`
+  listview-split {
+    children: [listview, icon-current-entry];
+  }
+  // Reduce to 4 columns
+  listview {
+    columns: 4;
+  }
+
+}
