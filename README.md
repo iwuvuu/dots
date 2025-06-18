@@ -34,4 +34,4 @@ yay -S kitty nvim
 # Roadmap
 
 - [x] Kitty config
-- [] Neovim config
+- [] Neovim config - add colorscheme switching

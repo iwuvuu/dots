@@ -15,6 +15,22 @@ const themes = #{
 	gruvbox: #{
 		background: "#282828",
     foreground: "#ebdbb2",
+		blackdark: "#3c3836",
+		blacklight: "#504945",
+		reddark: "#cc241d",
+		redlight: "#fb4934",
+		greendark: "#98971a",
+		greenlight: "#b8bb26",
+		yellowdark: "#d79921",
+		yellowlight: "#fabd2f",
+		bluedark: "#458588",
+		bluelight: "#83a598",
+		magentadark: "#b16286",
+		magentalight: "#d3869b",
+		cyandark: "#689d6a",
+		cyanlight: "#8ec07c",
+		whitedark: "#928374",
+		whitelight: "#a89984",
   },
 	mytheme: #{
 		foreground: "#def7f8",
@@ -39,5 +55,5 @@ const themes = #{
 };
 
 export const data = #{
-	colors: themes.mytheme
+	colors: themes.gruvbox
 };

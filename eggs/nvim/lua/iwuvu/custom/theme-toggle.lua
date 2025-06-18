@@ -4,6 +4,8 @@ local themes = {
 	everforest_dark = { name = "everforest", background = "dark" },
 	material_lighter = { name = "material-lighter", background = "light" },
 	material_deep_ocean = { name = "material-deep-ocean", background = "dark" },
+	gruvbox_light = { name = "gruvbox", background = "light" },
+	gruvbox_dark = { name = "gruvbox", background = "dark" },
 }
 
 -- Create custom user command

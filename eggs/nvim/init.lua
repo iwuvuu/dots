@@ -4,7 +4,7 @@
 require("iwuvu")
 require("config.lazy")
 
-vim.o.background = "light"
-vim.cmd("colorscheme material-lighter")
+vim.o.background = "dark"
+vim.cmd("colorscheme gruvbox")
 
 require("lazy").setup({{"nvim-treesitter/nvim-treesitter", build = ":TSUpdate"}})
