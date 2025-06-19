@@ -1,0 +1,102 @@
+(defwidget cal []
+  (eventbox :onhoverlost "${EWW_CMD} close cal"
+  (box
+  (calendar :valign "center" :class "calendar" :show-heading true))
+  )
+)
+
+(defpoll uptime :interval "2s" "scripts/sysmon.sh --uptime")
+(defpoll total_disk :interval "30s" "scripts/sysmon.sh --total")
+(defpoll used_disk :interval "30s" "scripts/sysmon.sh --used")
+(defpoll percent_disk :interval "30s" "scripts/sysmon.sh --percent")
+(defwidget sysmon []
+  (box :orientation "v" :class "system-monitor" :space-evenly false
+    (box :orientation "v" :space-evenly false
+      (label :text "System Monitor" :class "sysmon-title")
+      (label :text "----------------------------------------" :class "sysmon-sep"))
+    (box :orientation "h" :space-evenly false
+      (label :text "" :class "sysmon-icon" :tooltip "CPU")
+      (scale :min 0 :max 100  :value "${round(EWW_CPU["avg"], 3)}" :tooltip "${round(EWW_CPU["avg"], 1)}%"))
+    (box :orientation "h" :space-evenly false
+      (label :text "" :class "sysmon-icon" :tooltip "RAM")
+      (scale :min 0 :max {EWW_RAM["total_mem"]} :value {EWW_RAM["used_mem"]} :tooltip "${round(EWW_RAM["used_mem_perc"], 1)}%"))
+    (box :orientation "h" :space-evenly false
+      (label :text "" :class "sysmon-icon" :tooltip "disk")
+      (scale :min 0 :max {total_disk} :value {used_disk} :tooltip {percent_disk}))
+    (box :orientation "h" :space-evenly false
+      (label :text "" :class "sysmon-icon" :tooltip "uptime")
+      (label :text {uptime} :class "sysmon-uptime"))
+    (box :orientation "h" :space-evenly true
+      (box :orientation "h" :space-evenly false
+        (label :text "" :class "sysmon-icon")
+        (label :text "${round(EWW_NET['eno1']['NET_DOWN'] / 1000, 1)} Mb/s" :tooltip "Download" :class "sysmon-text"))
+      (box :orientation "h" :space-evenly false
+        (label :text "" :class "sysmon-icon")
+        (label :text "${round(EWW_NET['eno1']['NET_UP'] / 1000, 1)} Mb/s" :tooltip "Upload" :class "sysmon-text")))))
+
+;(defwidget sissytray []
+;  (box :orientation "v" :class "system-monitor" :space-evenly false
+;    (box :orientation "v" :space-evenly false
+;      (label :text "Sissytray" :class "sysmon-title")
+;      (label :text "----------------------------------------" :class "sysmon-sep"))
+;    (systray :orientation "h" :space-evenly false :icon-size 25 :prepend-new true)))
+
+(defvar waifu-url "XXX")
+(defvar waifu-height "XXX")
+(defvar waifu-bd "XXX")
+(defvar waifu-name "XXX")
+(defvar waifu-art "/home/iwuvu/.config/eww/resources/waifu/art/kaguya.png")
+(defwidget waifu []
+  (box :orientation "v" :class "waifu" :space-evenly false
+    (image :halign "center" :class "waifu-art" :path {waifu-art} :image-height 205)
+    (label :class "waifu-title" :halign "center" :text {waifu-name})
+    (box :class "waifu-text" :orientation "h" :space-evenly true
+      (label :text {waifu-bd} :halign "center" :class "waifu-left" :limit-width 50)
+      (label :text {waifu-height} :halign "center" :class "waifu-right"))
+    (box :orientation "h" :class "waifu-button" :space-evenly true
+      (button :tooltip "fandom" :onclick {waifu-url} "󰖟")
+      (button :tooltip "reload" :onclick "scripts/waifu.sh" ""))))
+
+(defpoll current-pos-sec :interval "1s" "scripts/dashboard_duration.sh --cur")
+(defpoll song-length-sec :interval "2s" "scripts/dashboard_duration.sh --len")
+(defpoll current-position :interval "1s" "scripts/dashboard_duration.sh --pos")
+(defpoll play-button :interval "1s" "scripts/song_status.sh")
+(defpoll cover-art :interval "2s" "scripts/current_art.sh")
+(defpoll song-title :interval "1s" "playerctl metadata --format {{title}}")
+(defpoll song-artist :interval "1s" "playerctl metadata --format {{artist}}")
+(defpoll song-album :interval "1s" "playerctl metadata --format {{album}}")
+(defpoll song-max-length :interval "1s" "playerctl metadata --format '{{ duration(mpris:length) }}'")
+(defwidget dashboard-art []
+  (box :orientation "h" :class "dashboard-song" :space-evenly false
+    (image :halign "start" :class "cover-art" :path {cover-art} :image-height 150)
+    (box :orientation "v" :valign "start" :halign "center" :class "dashboard-song" :space-evenly false :width 345 
+      (label :tooltip {song-title} :hexpand true :class "song-title" :limit-width 20 :text {song-title})
+      (label :tooltip {song-artist} :hexpand true :class "song-artist" :limit-width 35 :text {song-artist})
+      (label :tooltip {song-album} :hexpand true :class "song-artist" :limit-width 35 :text {song-album})
+      (box :class "song-length" :orientation "h" :space-evenly false :tooltip {current-volume}
+        (label :hexpand true :class "song-length" :limit-width 7 :text {current-position})
+        (scale :min 0 :max {song-length-sec}  :value {current-pos-sec} :onchange "playerctl  --player=spotify position {}")
+        (label :hexpand true :class "song-length" :limit-width 7 :text {song-max-length}))
+      (box :orientation "h" :class "song-button" :space-evenly true 
+        (button :onclick "playerctl previous" "󰙤" )
+        (button :onclick "playerctl play-pause" {play-button})
+        (button :onclick "playerctl next" "󰙢" )))))
+
+(defwindow cal :monitor 0 :stacking "fg" :wm-ignore true
+  :geometry (geometry :anchor "bottom left" :x "70px" :y "-150px"  :width "400px" :height "400px")
+  (cal))
+(defwindow sissytray :monitor 0 :stacking "fg" :wm-ignore true
+  :geometry (geometry :anchor "top left" :x "380px" :y "475px"  :width "240px" :height "75px")
+  (sissytray))
+(defwindow sysmon :monitor 0 :stacking "fg" :wm-ignore true
+  :geometry (geometry :anchor "top left" :x "380px" :y "190px"  :width "240px" :height "275px")
+  (sysmon))
+(defwindow waifu :monitor 0 :stacking "fg" :wm-ignore true
+  :geometry (geometry :anchor "top left" :x "70px" :y "190px"  :width "300px" :height "360px")
+  (waifu))
+(defwindow system-monitor :monitor 0 :stacking "fg" :wm-ignore true
+  :geometry (geometry :anchor "center center" :x "0px" :y "0px"  :width "300px" :height "180px")
+  (system-monitor))
+(defwindow dashboard-art :monitor 0 :stacking "fg" :wm-ignore true
+  :geometry (geometry :anchor "top left" :x "70px" :y "10px"  :width "550px" :height "170px")
+  (dashboard-art))

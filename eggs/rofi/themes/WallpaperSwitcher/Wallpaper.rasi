@@ -1,4 +1,9 @@
 /*===== Global properties =====*/
+
+configuration {
+	show-icons: true;
+}
+
 * {
   /* user variables */
   font: "FiraCode Nerd Font propo 11";

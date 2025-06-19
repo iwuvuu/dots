@@ -29,6 +29,8 @@ yay -S kitty nvim zsh zsh-syntax-highlighting
 
 - rofi-wayland - used as an application launcher and for other menus
 - wmctrl - tool to control hyprland from terminal
+- hyprland
+- hyprpm - wallpaper funcionality for hyprland
 
 **Optional dependencies**
 

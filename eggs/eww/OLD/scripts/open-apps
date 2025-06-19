@@ -1,0 +1,27 @@
+#!/bin/bash
+
+if [[ "$1" == "--chromium" ]]; then
+  chromium
+elif [[ "$1" == "--discord" ]]; then
+  vesktop #discord
+elif [[ "$1" == "--gimp" ]]; then
+  gimp
+elif [[ "$1" == "--keepassxc" ]]; then
+  keepassxc
+elif [[ "$1" == "--kitty" ]]; then
+  kitty
+elif [[ "$1" == "--krita" ]]; then
+  krita
+elif [[ "$1" == "--libreoffice" ]]; then
+  libreoffice
+elif [[ "$1" == "--librewolf" ]]; then
+  librewolf
+elif [[ "$1" == "--spotify" ]]; then
+  spotify-launcher
+elif [[ "$1" == "--steam" ]]; then
+  steam
+elif [[ "$1" == "--trilium" ]]; then
+  trilium
+elif [[ "$1" == "--xppen" ]]; then
+  dex /usr/share/applications/xppentablet.desktop
+fi

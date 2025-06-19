@@ -1,0 +1,91 @@
+(defwidget settings-box []
+  (eventbox :class "default" :onhoverlost "${EWW_CMD} close dashboard-art";;settings"
+    (box :orientation "v" :vexpand true
+      (settings-scroll)
+    )
+  )
+)
+
+(defwidget settings-scroll []
+  (scroll :vscroll true :class "default"
+    (box :class "settings-scroll" :orientation "v"
+      (box :valign "start" :height 50 (label :class "settings-title" :text "SETTINGS"))
+      (wm-settings)
+      (label :text "xxx")
+      (label :text "xxx")
+      (label :text "xxx")
+      (label :text "xxx")
+      (label :text "xxx")
+      (label :text "xxx")
+      (label :text "xxx")
+      (label :text "xxx")
+      (label :text "xxx")
+      (label :text "xxx")
+      (label :text "xxx")
+      (label :text "xxx")
+      (label :text "xxx")
+      (label :text "xxx")
+      (label :text "xxx")
+      (label :text "xxx")
+      (label :text "xxx")
+      (label :text "xxx")
+      (label :text "xxx")
+      (label :text "xxx")
+      (label :text "xxx")
+      (label :text "xxx")
+    )
+  )
+)
+
+(defpoll gaps-init :interval "1s" "grep 'gaps = ' ~/.config/awesome/settings.lua | awk '{print $3}'")
+(defvar gaps-now "5")
+
+(defwidget wm-settings []
+  (box :orientation "v" :space-evenly false
+    (label :halign "start" :valign "start" :class "settings-chapters" :text "Window manager:")
+    (gaps)
+  )
+)
+
+(defwidget gaps []
+  (box :orientation "h" :class "content-light" :hexpand true
+    (label :halign "start" :text "Gaps:")  
+    (box :class "gaps" :onhoverlost "h" :space-evenly false ;:halign "end"   
+      (scale :min 0 :max 51 :orientation "h" :flipped false :halign "center" :value {gaps-init} :hexpand false :space-evenly true
+            :onchange "sed -i -E 's/gaps = .+/gaps = {}/' ~/.config/awesome/settings.lua && ${EWW_CMD} update gaps-now={}")
+      (label :halign "center" :hexpand false :class "gaps-text" :text "${gaps-now}")
+    )
+  )
+)
+
+(defwindow settings :monitor 0 :stacking "fg" :wm-ignore false
+  :geometry (geometry :anchor "top left" :x "70px" :y "10px"  :width "550px" :height "1060px")
+  :reserve (struts :distance "620px" :side "left")
+  (settings-box))
+
+
+;;(defvar wm-settings-toggle true)
+;;(defvar wm-icon "")
+
+
+;(defwidget wm-settings []
+;  (box :orientation "v"
+;    (box :orientation "h" :space-evenly true
+;      (label :halign "start" :valign "start" :class "settings-chapters" :text "Window manager:")
+;      (eventbox :halign "end" :cursor "poinet" 
+;        (checkbox :class "settings-chapters" :checked false
+;                :onchecked "${EWW_CMD} update wm-settings-toggle=false && ${EWW_CMD} update wm-icon=''" 
+;                :onunchecked "${EWW_CMD} update wm-settings-toggle=true" 
+;                (label :text {wm-icon})
+;        )
+;      )
+;    )
+;    (revealer :transition "slideup" :reveal wm-settings-toggle :duration "550ms"
+;      (box :orientation "v"
+;        (box "X")
+;        (box "Y")
+;      )
+;    )
+;  )
+;)
+

@@ -1,0 +1,41 @@
+.PMBackground {
+  background-color: $PMBackground;
+}
+.PM-box {
+  background-color: $base;
+  color: $text;
+  border-radius: 40px;
+  box-shadow: 0 0 8px 4px $black;
+  margin: 8px 8px 8px 8px;
+}
+.PM-text {
+  font-size: 35;
+  margin: 69px 0px 25px 0px;
+}
+.PM-icon {
+  background-color: $crust;
+  font-size: 40;
+  border-radius: 25px;
+  border: 10px solid $base;
+  &:hover {
+    background-color: $surface1;
+    border-radius: 25px;
+    border: 10px solid $base;
+  }
+}
+.PM-icon-big {
+  background-color: $red;
+  color: $base;
+  font-size: 70;
+  border-radius: 20px;
+  &:hover {
+    background-color: $sky;
+    border-radius: 20px;
+  }
+}
+.PM-btn-box {
+  margin: 0px 10px 20px 10px;
+}
+.PM-win-text {
+  color: $red;
+}

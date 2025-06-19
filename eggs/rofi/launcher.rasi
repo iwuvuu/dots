@@ -1,0 +1,139 @@
+//          ╭─────────────────────────────────────────────────────────╮
+//          │                    Default Launcher                     │
+//          ╰─────────────────────────────────────────────────────────╯
+
+configuration {
+  modi: "drun";
+  show-icons: true;
+  //icon-theme: "Tela-circle"; 
+  display-drun: "";
+  drun-display-format: "{name}";
+}
+
+// ── Global configuration ────────────────────────────────────────────
+
+* {
+	font: "FiraCode Nerd Font propo 12"; // {< replace_quoted(data.font.normal) >}
+
+	foreground: #ebdbb2; // {< replace_color(data.colors.foreground) >}
+	bg: #1d2021; // {< replace_color(data.colors.background) >}
+	bg3: #665c54; // {< replace_color(data.colors.bg3) >}
+	bgTrans80: #1d2021B3; // {< replace_color(data.colors.backgroundTrans80) >}
+	blackDarkTrans40: #3c383666; // {< replace_color(data.colors.blackDarkTrans40) >}
+	accentTrans10: #d65d0e1A; // {< replace_color(data.colors.accentDarkTrans) >}
+	accentLight: #fe8019; // {< replace_color(data.colors.accentLight) >}
+	blueLight: #83a598; // {< replace_color(data.colors.blueLight) >}
+	magentaLight: #d3869b; // {< replace_color(data.colors.magentaLight) >}
+	background: transparent;
+}
+
+window {
+	location: north;
+	anchor: north;
+	fullscreen: false;
+
+	height: 40%;
+	width: 400px;
+	y-offset: 10px; // {< replace_number(data.gaps.out) >}
+
+	border: 3px; // {< replace_number(data.border.border) >}
+	border-color: @bg3;
+	background-color: @bgTrans80;
+}
+
+scrollbar {
+  enabled: true;
+  handle-width: 7px;
+  border-radius: 5px;
+  background-color: @bgTrans80;
+  handle-color: @accentLight;
+}
+
+mainbox {
+  enabled: true;
+
+  spacing: 1em;
+  orientation: vertical;
+
+  background-color: transparent;
+
+  children: [ "inputbar", "listview" ];
+}
+
+inputbar {
+  background-color: @blackDarkTrans40;
+	padding: 0.3em;
+  children: ["prompt", "entry"];
+}
+
+prompt {
+  background-color: transparent;
+  text-color: @magentaLight;
+  enabled: true;
+  placeholder: "";
+  padding: 0em 0.4em 0em 0.4em;
+}
+
+entry {
+  text-color: @blueLight;
+  font: @font;
+  enabled: true;
+  cursor: text;
+  placeholder: "Search";
+  placeholder-color: inherit;
+  vertical-align: 0.6;
+  background-color: transparent;
+}
+
+listview {
+  enabled: true;
+  fixed-columns: true;
+  fixed-lines: true;
+  flow: vertical;
+  columns: 1;
+  //lines: 7;
+  //spacing: 1em;
+  background-color: transparent;
+  scrollbar: true;
+}
+
+
+
+element {
+  enabled: true;
+  background-color: transparent;
+  orientation: horizontal;
+}
+
+element-icon {
+  enabled: true;
+  size: 16px;
+  padding: 3px;
+  background-color: transparent;
+  border: 3px;
+}
+element-text {
+  padding: 0.2em;
+  background-color: transparent;
+	text-color: @foreground;
+}
+element-text selected.normal {
+  background-color: @accentLight;
+  text-color: @bg;
+}
+element normal.normal {
+    background-color:            @blackDarkTrans40;
+    text-color:                  @text-color;
+}
+element alternate.normal {
+  background-color: transparent;
+}
+element selected.normal {
+    border:                      3px 3px 3px 3px;
+    border-color:                transparent;
+    background-color:            @accentLight;
+    text-color:                  @bg;
+}
+
+
+

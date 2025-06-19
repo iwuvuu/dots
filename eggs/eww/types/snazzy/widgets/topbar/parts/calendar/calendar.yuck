@@ -1,0 +1,241 @@
+(defpoll weather-city :interval "12h" "bash	~/.config/eww/scripts/weather-api.sh --city")
+(defpoll weather-wind :interval "1m" "bash ~/.config/eww/scripts/weather-api.sh --wind")
+(defpoll weather-temp :interval "1m" "bash ~/.config/eww/scripts/weather-api.sh --temp")
+(defpoll weather-hum :interval "1m" "bash ~/.config/eww/scripts/weather-api.sh --hum")
+(defpoll weather-desc :interval "10m" "bash ~/.config/eww/scripts/weather-api.sh --desc")
+(defpoll weather-icon :interval "10m" "bash ~/.config/eww/scripts/weather-api.sh --icon")
+
+(defwidget calendar-widget []
+
+	;; MASTER BOX
+	(box 
+		:space-evenly false
+		:orientation "v"
+		:class "uBox shadow-box popupBox"
+
+		;; TITLE BOX
+		;; CONTENT BOX
+		(box
+			:orientation "h"
+			:space-evenly false
+
+			;; LEFT COLUMN
+			(box
+				:orientation "v"
+
+
+
+				;; CALENDAR
+				(box
+				:class "cal-widget"
+					(calendar
+						:show-details true
+						:show-heading true
+					)
+
+
+				)
+				;; CLOCK
+				(box
+					(box
+						:class "clock-box"
+						:orientation "v"
+						:space-evenly false
+						(box
+							:class "clock-time"
+							:halign "center"
+							(label
+								:text {formattime(EWW_TIME, "%H:%M.%S")}
+							)
+						)
+						(box
+							(label
+								:text {formattime(EWW_TIME, "%a, %B %d")}
+								:class "clock-date"
+							)
+						)
+						(box
+							:orientation "h"
+							:valign "end"
+							:space-evenly false
+							(box
+								:halign "start"
+								(eventbox
+									(label
+										:text "󰀠"
+										:class "clock-alarm"
+									)
+								)
+							)
+							(box
+								:halign "end"
+								:class "test-box"
+								(eventbox
+									(box
+										:space-evenly false
+										:halign "end"
+										:hexpand true
+										(label
+											:text ""
+											:halign "end"
+											:hexpand true
+										)
+										(label
+											:text "Europe/Prague"
+											:halign "end"
+											:hexpand true
+
+										)
+									)
+								)
+							)
+						)
+					)
+				)
+			)
+
+			;; RIGHT COLUMN 
+			(box
+				:orientation "v"
+				
+				;; ICON + TEMP
+				(box
+					:class "pill-box"
+					:orientation "v"
+					:space-evenly false
+					:vexpand true
+					:width 220
+					:heigh 220
+					:halign "center"
+					:valign "center"
+					(box
+						:width 125
+						:height 110
+						:class "temperature"
+						:halign "end"
+						:vexpand  true
+						(label
+							:text "${round(weather-temp, 1)}°C"
+							;:text "30.8 C"
+						)
+					)
+					(box
+						(image
+							:image-height 60
+							:path "/home/iwuvu/.config/eww/resources/icons/weather-icons/${weather-icon}.svg"
+							:halign "start"
+							:vexpand true
+							:class "weather-main-icon"
+						)
+					)
+				)
+				
+				;; REST
+				(box
+					:orientation "h"
+					:hexpand true
+					:space-evenly false 
+					(box
+						:orientation "v"
+						:hexpand true
+						:width 320
+						:space-evenly true
+						(box
+							:hexpand true
+						(box
+							:orientation "v"
+							:class "weather-box"
+							:space-evenly false
+							:valign "center"
+							(label
+								:text "Current forecast:"
+								:class "weather-desc"
+							)
+						(label
+							:text "${weather-desc}"
+							:class "weather-high"
+						)
+						)
+						)
+						(box
+							:orientation "v"
+							:valign "bottom"
+						(box
+							:orientation "h"
+							:space-evenly false
+							:space-evenly false
+							(box
+								:class "weather-box"
+								:space-evenly false
+								:hexpand true
+								(label
+									:text ""
+									:class "weather-icon"
+									:hexpand true
+									:halign "start"
+								)
+								(label
+								:text "${weather-wind}m/s"
+								:class "weather-label"
+									:hexpand true
+									:halign "end"
+								)
+							)
+							(box
+								:class "weather-box"
+								:space-evenly false
+								:width 140 
+								(label
+									:text ""
+									:class "weather-icon"
+									:hexpand true
+									:halign "start"
+								)
+								(label
+								:text "${weather-hum}%"
+								:class "weather-label"
+									:hexpand true
+									:halign "end"
+								)
+							)
+						)
+						(box
+							:class "weather-box"
+							:space-evenly false
+							:hexpand true
+							(label
+								:text ""
+								:class "weather-icon"
+								:halign "start"
+								:hexpand true
+							)
+							(box
+								:halign "end"
+								:hexpand true
+							(label
+								:text {weather-city}
+								:class "weather-label"
+							)
+							)
+						)
+						)
+					)
+				)
+			)
+		)
+	)
+)
+
+(defwindow calendar 
+  :geometry (geometry
+    :x "0px"
+    :y "0px"
+    :width "600px"
+    :height "200px"
+    :anchor "top center")
+  :stacking "fg"
+  :exclusive false 
+  :namespace "overlay"
+  (calendar-widget)
+)
+

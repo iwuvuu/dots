@@ -1,0 +1,4 @@
+name: Megumin
+url: https://konosuba.fandom.com/wiki/Megumin
+bd: Dec 4th
+height: 145cm

@@ -1,0 +1,8 @@
+(include "themes/rose/powermenu/powermenu.yuck")
+;(include "mybar/mybar.yuck")
+(include "vars/global.yuck")
+;(include "mydashboard/mydashboard.yuck")
+(include "myapplauncher/myapplauncher.yuck")
+(include "themes/rose/bar/mybar.yuck")
+(include "themes/rose/calendar/calendar.yuck")
+(include "themes/rose/settings/settings.yuck")

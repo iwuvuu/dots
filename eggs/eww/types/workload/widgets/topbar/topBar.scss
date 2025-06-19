@@ -1,0 +1,209 @@
+.default-top {
+  font-size: 15;
+  background-color: $bg_dim;
+  color: $fg;
+  border-bottom: 3px solid $gray1;
+}
+.barEvent {
+  &:hover {
+    background-color: $bg0;
+    color: $gray1;
+  //border: 3px solid $bg_dim;
+    //border-radius: 10px;
+
+  }
+  &:active {
+    background-color: $fg;
+    color: $bg0;
+    //border: 5px solid $bg_dim;
+    //border-radius: 10px;
+
+  }
+}
+
+.rofi-box {
+  background-color: $blue;
+  border: 5px solid $bg_dim;
+  border-radius: 10px;
+
+}
+.overview-box {
+  background-color: $purple;
+  border: 5px solid $bg_dim;
+  border-radius: 10px;
+}
+
+.light-box {
+  background-color: $bg4;
+  border: 3px solid $bg_dim;
+  border-radius: 10px;
+  color: $fg;
+}
+.dark-box {
+  background-color: $bg5;
+  border: 3px solid $bg_dim;
+  border-radius: 10px;
+  color: $fg;
+}
+.purple-box {
+  background-color: $purple;
+  border: 5px solid $bg_dim;
+  border-radius: 10px;
+
+}
+.aqua-box {
+  background-color: $aqua;
+  border: 3px solid $bg_dim;
+  border-radius: 10px;
+
+}
+.blue-box {
+  background-color: $blue;
+  border: 5px solid $bg_dim;
+  border-radius: 10px;
+
+}
+.green-box {
+  background-color: $green;
+  border: 3px solid $bg_dim;
+  border-radius: 10px;
+
+}
+.red-box {
+  background-color: $red;
+  border: 3px solid $bg_dim;
+  border-radius: 10px;
+}
+
+.barBox {
+  background-color: $bg_dim;
+//border-radius: 10px;
+  //border: 5px solid $bg_dim;
+}
+
+.singleIcon {
+  font-size: 20;
+}
+.off {
+  color: $red;
+  font-size: 20;
+}
+.on {
+  color: $green;
+  font-size: 20;
+}
+.updates-on {
+  color: $aqua;
+  margin: 0px 5px;
+  font-size: 20px;
+}
+.updates-off {
+  margin: 0px 5px;
+  font-size: 20px;
+}
+.updates-text {
+  margin-right: 5px;
+}
+
+.good {
+  color: $green;
+  font-size: 23;
+  //padding: 5px;
+}
+.mid {
+  color: $yellow;
+  font-size: 23;
+  //padding: 5px;
+}
+.critical {
+  color: $red;
+  font-size: 23;
+  //padding: 5px;
+}
+
+.list {
+  margin: 0px 5px;
+}
+.list-first {
+  margin: 0px 0px 0px 10px;
+}
+.list-last {
+  margin: 0px 10px 0px 0px;
+}
+.list2-first {
+  margin: 0px 0px 0px 10px;
+}
+.list2-last {
+  margin: 0px 10px 0px 0px;
+}
+
+
+.bat-percent {
+  margin-right: 10px;
+  font-size: 16;
+  color: $fg;
+}
+
+
+
+.time {
+  background-color: $bg5;
+  border-radius: 10px;
+  border: 3px solid $bg_dim;
+}
+.time-text {
+  padding-left: 5px;
+  padding-right: 5px;
+  font-weight: bold;
+  font-size: 16;
+}
+
+.sissytray {
+  padding: 0px 10px;
+}
+
+.workspaceScroll {
+  background-color: $bg5;
+  border-radius: 10px;
+  border: 3px solid $bg_dim;
+}
+.workspace-entry {
+  margin: 0px 3px;
+  }
+.ws-hover {
+  &:hover {
+    background-color: $bg0;
+  }
+}
+.workspace-entry.current {
+  color: $orange;
+}
+.workspace-entry.occupied {
+}
+.workspace-entry.empty {
+}
+
+
+.mybar-volume scale trough highlight {
+  background-color: $orange;
+  border-radius: 50px;
+}
+.mybar-volume scale trough {
+  background-color: $gray2;
+  border-radius: 50px;
+  min-height: 20px;
+  min-width: 100px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+.volume-text {
+  margin-right: 10px;
+}
+
+.nums {
+  margin: 0px 3px 0px 10px; 
+}
+.caps {
+  margin: 0px 10px 0px 3px; 
+}
+

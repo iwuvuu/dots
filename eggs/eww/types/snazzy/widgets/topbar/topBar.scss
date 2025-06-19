@@ -1,0 +1,315 @@
+.default-top {
+  font-size: 15;
+  background-color: $bg_dim;
+  color: $fg;
+  //border-bottom: 3px solid $gray1;
+}
+
+
+.rofi-box {
+  background-color: $blue;
+  border: 5px solid $bg_dim;
+  border-radius: 10px;
+
+}
+.overview-box {
+  background-color: $purple;
+  border: 5px solid $bg_dim;
+  border-radius: 10px;
+}
+
+.light-box {
+  background-color: $bg4;
+  border: 3px solid $bg_dim;
+  border-radius: 10px;
+  color: $fg;
+}
+.dark-box {
+  background-color: $bg5;
+  border: 3px solid $bg_dim;
+  border-radius: 10px;
+  color: $fg;
+}
+.purple-box {
+  background-color: $purple;
+  border: 5px solid $bg_dim;
+  border-radius: 10px;
+
+}
+.aqua-box {
+  background-color: $aqua;
+  border: 3px solid $bg_dim;
+  border-radius: 10px;
+
+}
+.blue-box {
+  background-color: $blue;
+  border: 5px solid $bg_dim;
+  border-radius: 10px;
+
+}
+.green-box {
+  background-color: $green;
+  border: 3px solid $bg_dim;
+  border-radius: 10px;
+
+}
+.red-box {
+  background-color: $red;
+  border: 3px solid $bg_dim;
+  border-radius: 10px;
+}
+
+.barBox {
+  background-color: $bg_dim;
+//border-radius: 10px;
+  //border: 5px solid $bg_dim;
+}
+
+.singleIcon {
+  font-size: 20;
+}
+.off {
+  color: $red;
+  font-size: 20;
+}
+.on {
+  color: $green;
+  font-size: 20;
+}
+.updates-on {
+  color: $aqua;
+  margin: 0px 5px;
+  font-size: 20px;
+}
+.updates-off {
+  margin: 0px 5px;
+  font-size: 20px;
+}
+.updates-text {
+  margin-right: 5px;
+}
+
+
+
+.list {
+  margin: 0px 5px;
+}
+.list-first {
+  margin: 0px 0px 0px 10px;
+}
+.list-last {
+  margin: 0px 10px 0px 0px;
+}
+.list2-first {
+  margin: 0px 0px 0px 10px;
+}
+.list2-last {
+  margin: 0px 10px 0px 0px;
+}
+
+
+.bat-percent {
+  margin-right: 10px;
+  font-size: 16;
+  color: $fg;
+}
+
+
+
+.time {
+  background-color: $bg5;
+  border-radius: 10px;
+  border: 3px solid $bg_dim;
+}
+.sissytray {
+  padding: 0px 10px;
+}
+
+.workspaceScroll {
+  background-color: $bg5;
+  border-radius: 10px;
+  border: 3px solid $bg_dim;
+}
+.workspace-entry {
+  margin: 0px 3px;
+  }
+.ws-hover {
+  &:hover {
+    background-color: $bg0;
+  }
+}
+.workspace-entry.current {
+  color: $orange;
+}
+.workspace-entry.occupied {
+}
+.workspace-entry.empty {
+}
+
+
+.mybar-volume scale trough highlight {
+  background-color: $orange;
+  border-radius: 50px;
+}
+.mybar-volume scale trough {
+  background-color: $fg;
+  color: $blue;
+  border-radius: 50px;
+  min-height: 20px;
+  min-width: 100px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+.volume-text {
+  margin-right: 10px;
+}
+
+.nums {
+  margin: 0px 3px 0px 10px; 
+}
+.caps {
+  margin: 0px 10px 0px 3px; 
+}
+
+
+
+
+//Boxes
+.uBox {
+  background-color: $bg;
+}
+.popupBox {
+  background-color: $bg;
+  border-radius: 20px;
+  padding: 5px;
+
+}
+.shadow-box {
+  margin: 8px 8px 8px 8px;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2), 0 4px 3px 0 rgba(0, 0, 0, 0.19);
+}
+.but-box {
+  background-color: $contrast;
+  border-radius: 8px;
+  border: 3px solid $bg;
+}
+
+//
+//Icons
+//
+
+.red-icon {
+  color: $red;
+  font-size: 20;
+  margin: 0px 5px;
+}
+
+
+//
+// Text
+//
+
+//// ANIMATIONS
+@keyframes button-active-anim {
+  from {background-color: $bg;}
+  to {background-color: $orange;}
+}
+@keyframes button-hover-anim {
+  from {background-color: $contrast;}
+  to {background-color: $hover;}
+}
+//// UNIVERSALS
+.none {
+}
+//Colors
+.green {
+  color: $green;
+}
+.yellow {
+  color: $yellow;
+}
+.red {
+  color: $red;
+}
+
+//Icons
+.icon {
+  font-size: 20;
+  margin: 0px 3px;
+}
+
+//Buttons
+.barEvent {
+  &:hover {
+    background-color: $bg-dark;
+    color: $fg;
+
+  }
+  &:active {
+    background-color: $highlight;
+    color: $fg;
+    border: 3px solid $bg;
+    border-radius: 10px;
+    //border: 5px solid $bg_dim;
+    //border-radius: 10px;
+    animation-name: button-active-anim;
+    animation-duration: 1s;
+  }
+}
+.button-off {
+  &:hover {
+    background-color: $hover;
+    color: $fg;
+    padding: 0px 20px;
+    border-radius: 8px;
+    animation-name: button-hover-anim;
+    animation-duration: 0.5s;
+  }
+}
+.button-on{
+  background-color: $orange;
+  border-radius: 8px;
+  animation-name: button-active-anim;
+  animation-duration: 0.5s;
+}
+
+
+//// TIME
+.time-text {
+  padding-left: 10px;
+  padding-right: 10px;
+  //font-weight: bold;
+  font-size: 16;
+}
+
+//// BATTERY 
+//Tooltip
+.battery-tooltip{
+  color: $fg;
+  font-size: 15;
+}
+.battery-status {
+  font-size: 15;
+  font-weight: bold;
+}
+.battery-progress {
+  margin-left: 10px;
+  background-color: $bg-darker;
+}
+
+//// BAR
+.shadow-bar {
+  margin: 0px 0px 8px 0px;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.41)
+}
+
+.test-progress-one {
+  margin-left: 10px;
+  background-color: $green;
+  color: $fg;
+}
+.test-progress-two {
+  margin-left: 10px;
+  color: $green;
+}

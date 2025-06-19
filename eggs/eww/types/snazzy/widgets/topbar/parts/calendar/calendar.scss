@@ -1,0 +1,148 @@
+.widget-box {
+  background-color: $bg_alt;
+}
+
+.cal-title{
+  color: $fg;
+  font-size: 20;
+  padding-top: 10px;
+  padding-bottom: 8px;
+}
+.cal-text{
+  color: $fg;
+}
+.cal-widget {
+  padding: 10px;
+  background-color: $bg_alt;
+  border-radius: 15px;
+}
+calendar {
+  padding: 2px 2px 2px 3px;
+  margin: 5px;
+  color: $fg;
+  font-size: 14;
+  &:selected {
+    color: $bg;
+    background-color: $accent;
+    border-radius: 5px;
+  }
+  &:indeterminate {
+    color: $disabled;
+  }
+  &.button {
+    color: $fg_alt;
+    &:hover {
+      color: $fg;
+    }
+  }
+  &.header {
+    color: $fg_alt;
+  }
+  &.highlight {
+    color: $fg;
+    background-color: $contrast;
+    border-radius: 5px;
+  }
+}
+
+// WEATHER
+.pill-box {
+  background-color: $accent;
+  border-radius: 150;
+}
+.temperature {
+  color: $fg;
+  background-color: $bg;
+  padding: 5;
+  border-radius: 50;
+  font-weight: bold;
+  font-size: 20;
+  margin-right: 30px;
+  margin-top: 20px;
+}
+.weather-main-icon {
+  background-color: $bg;
+  border-radius: 50;
+  padding: 5;
+  margin-left: 40;
+  margin-bottom: 30;
+}
+
+// WEATHER BOTTOM
+.weather-box {
+  background-color: $bg-alt;
+  margin-left: 5px;
+  border-radius: 15;
+  margin-top: 5px;
+}
+.weather-icon {
+  color: $accent;
+  font-size: 20;
+  background-color: $contrast;
+  margin: 10px 0px 10px 10px;
+  padding: 0 7px;
+  border-radius: 5px;
+}
+.weaher-icon-small {
+  font-size: 16;
+}
+.weather-label {
+  color: $fg;
+  font-size: 16;
+  background-color: $contrast;
+  margin: 10 10 10 5;
+  padding: 0 10px;
+  border-radius: 5px;
+}
+.weather-small {
+  font-size: 12;
+}
+.weather-desc {
+  color: $fg;
+  font-size: 14;
+  margin-top: 5px;
+}
+.weather-high {
+  color: $accent;
+  font-size: 24;
+  font-weight: bold;
+}
+
+.test-box {
+  background-color: $red;
+}
+
+.clock-center {
+  background-color: $red;
+}
+.clock-second {
+  background-color: $blue;
+  //margin-bottom: 50px;
+}
+.clock-box {
+  background-color: $accent;
+  margin: 20px;
+  border-radius: 20px;
+}
+.clock-time {
+  background-color: $bg;
+  color: $fg;
+  font-size: 30;
+  font-weight: bold;
+  padding: 10;
+  border-radius: 10;
+  margin-top: 30;
+}
+.clock-date {
+  font-size: 16;
+  color: $bg;
+  margin-top: 5px;
+}
+.clock-alarm {
+  background-color: $bg;
+  color: $fg;
+  font-size: 16;
+  padding: 2 6;
+  margin-left: 5;
+  border-radius: 5;
+}

@@ -1,0 +1,9 @@
+(defvar ICONS "/home/iwuvu/.config/eww/resources/icons/")
+(defvar TEXT "#4c4f69")
+
+(defpoll currVol :interval "1s" "amixer sget Master | grep 'Left: Playback' | awk '{ print $5 }' | tr -d '[%]'")
+(defvar currWallpaper "none")
+(defvar currWallDir "/home/iwuvu/Pictures/Wallpapers/")
+(defvar currMonitor "none")
+(defvar currMonSize "none")
+

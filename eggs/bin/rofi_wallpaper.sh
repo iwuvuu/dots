@@ -36,10 +36,12 @@ set_wall_hyprland(){
 permanent=$(echo -e "Yes\nNo" | rofi -dmenu -config $theme_permanent -me-select-entry "MousePrimary" -me-accept-entry "!MousePrimary" -p "Set the wallpaper permanently?")
    if [[ $permanent == "No" ]]; then
       hyprctl hyprpaper preload $dir$wallpaper && hyprctl hyprpaper wallpaper , $dir$wallpaper
+			hyprctl hyprpaper unload all
     else
       hyprctl hyprpaper preload $dir$wallpaper && hyprctl hyprpaper wallpaper , $dir$wallpaper &&
       sed -i "s|preload = .*|preload = $dir$wallpaper|g" ~/.config/hypr/hyprpaper.conf
       sed -i "s|wallpaper = .*|wallpaper = , $dir$wallpaper|g" ~/.config/hypr/hyprpaper.conf
+			hyprctl hyprpaper unload all
       eww update currWallpaper="$wallpaper"
     fi
 }

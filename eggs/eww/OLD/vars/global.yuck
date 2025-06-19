@@ -1,0 +1,27 @@
+;; TIME
+(defpoll hour :interval "10s" "date \"+%H\"")
+(defpoll min :interval "10s"  "date \"+%M\"")
+
+;; CURRENT LAYOUT
+;; - uses literal
+(defpoll current-layout :interval "1s" "scripts/layout.sh")
+
+;; TAGS
+(defpoll groups :interval "0.3s" "scripts/grp.sh")
+
+;; CAPS and NUMS
+;; - uses literal
+(defpoll caps-script :interval "1s" "scripts/caps.sh")
+(defpoll num-script :interval "1s" "scripts/num.sh")
+
+;; BATERY
+(defpoll bat-script :interval "60s" "scripts/bat.sh")
+
+;; BRIGHTNESS
+(defpoll bright-toggle :interval "1s" "scripts/toggle-bright.sh")
+(defpoll current-brightness :interval "1s" "scripts/brightness.sh")
+
+;; VOLUME
+(defpoll volume-toggle :interval "1s" "scripts/toggle-mute.sh")
+(defpoll current-volume :interval "1s" "amixer sget Master | grep 'Left: Playback' | awk '{ print $5 }' | tr -d '[%]'")
+

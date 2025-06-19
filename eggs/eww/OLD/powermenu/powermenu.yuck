@@ -1,0 +1,32 @@
+;; WIDGETS
+(defwidget cls-pwr-mn-btn []
+  (box :class "cls-pwr-mn-btn-wdgt"
+    (box :class "cls-pwr-mn-btn-box" :valign "end" :halign "end" :space-evenly false
+      (button :class "cls-pwr-mn-btn" :onclick "eww close power-logout power-restart power-shutdown closemypowermenu" "󰩈"))))
+(defwidget power-logout []
+  (box :class "powermenu-btns-box"
+    (button :class "pwr-mn-btn-lgt" :tooltip "logout" :onclick "qtile cmd-obj -o cmd -f shutdown" "")))
+(defwidget power-restart []
+  (box :class "powermenu-btns-box"
+    (button :class "pwr-mn-btn-rbt" :tooltip "reboot" :onclick "reboot" "")))
+(defwidget power-shutdown []
+  (box :class "powermenu-btns-box"
+    (button :class "pwr-mn-btn-shtdwn" :tooltip "shutdown" :onclick "poweroff" "")))
+
+
+;; WINDOWS
+(defwindow power-logout :monitor 0 :stacking "fg" :windowtype "normal" :wm-ignore true
+  :geometry (geometry :x "15%" :y "0%" :width "10%" :height "10%" :anchor "center")
+  (power-logout))
+(defwindow power-restart :monitor 0 :stacking "fg" :windowtype "normal" :wm-ignore true
+  :geometry (geometry :y "0%" :width "10%" :height "10%" :anchor "center")
+  (power-restart))
+(defwindow power-shutdown :monitor 0 :stacking "fg" :windowtype "normal" :wm-ignore true
+  :geometry (geometry :y "0%" :x "-15%" :width "10%" :height "10%" :anchor "center")
+  (power-shutdown))
+(defwindow closemypowermenu :monitor 0 :stacking "fg" :windowtype "normal" :wm-ignore true
+  :geometry (geometry :width "100%" :height "100%")
+  (cls-pwr-mn-btn))
+
+
+

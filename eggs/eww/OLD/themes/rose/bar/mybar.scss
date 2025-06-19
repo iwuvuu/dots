@@ -1,0 +1,196 @@
+// General styling is in variables/colors.scss.
+// Every class is included for modification.
+
+.mybar-launch {
+  font-size: 35px;
+}
+.mybar-layout {
+  button {
+    padding-bottom: 10px;
+  }
+}
+.mybar-tags {
+  font-size: 25px;
+  background-color: $bg;
+  border-radius: 10px;
+  button {
+    &:hover{
+      background-color: $bg;
+      color: $cyan;
+    }
+  }
+}
+.active {
+  color: $saphire;
+}
+.inactive {
+  color: $alt;
+}
+.volume-off {
+  color: $red;
+}
+.mybar-volume scale trough highlight {
+  background-color: $saphire;
+  border-radius: 50px;
+}
+.mybar-volume scale trough {
+  background-color: $alt;
+  border-radius: 50px;
+  min-height: 100px;
+  min-width: 10px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+.bright_low {
+  color: $red;
+}
+
+
+
+
+
+.dashboard-btn {
+  color: $blue;
+  button {
+    padding-top: 10px;
+  }
+}
+
+
+
+
+
+.default {
+  background-color: $bg;
+  font-family: "Fira Code Nerd Font Propo";
+  font-size: 30;
+  button {
+    &:hover {
+      background-color: $bg;
+      color: $fg;
+    }
+  }
+}
+.separ {
+  color: $alt;
+  padding: 0px;
+  font-family: "Fira Code Nerd Font Propo";
+  font-size: 15;
+  font-weight: bold;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+.song-btn {
+  color: $cyan;
+}
+.prog {
+  background-color: $alt;
+}
+.song {
+  color: $cyan;
+  padding-top: 5px;
+  font-size: 30px;
+}
+
+.volume circular-progress trough highlight {
+  background-color: $cyan;
+  border-radius: 50px;
+}
+.volume {
+  color: $cyan;
+  padding-top: 5px;
+}
+.volume scale trough highlight {
+  background-color: $cyan;
+  border-radius: 50px;
+}
+.volume scale trough {
+  background-color: $alt;
+  border-radius: 50px;
+  min-height: 100px;
+  min-width: 10px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+.brightness {
+  color: $cyan;
+  padding-top: 5px;
+}
+.brightness scale trough highlight {
+  background-color: $cyan;
+  border-radius: 50px;
+}
+.brightness scale trough {
+  background-color: $alt;
+  border-radius: 50px;
+  min-height: 100px;
+  min-width: 12px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+.good {
+  color: $green;
+  font-size: 40px;
+  //padding: 5px;
+}
+.mid {
+  color: $yellow;
+  font-size: 40px;
+  //padding: 5px;
+}
+.critical {
+  color: $red;
+  font-size: 40px;
+  //padding: 5px;
+}
+.settings-children {
+  font-size: 25px;
+}
+.wifi {
+  color: $red;
+}
+.bluetooth {
+  color: $red;
+}
+.caps-off {
+  color: $red;
+  background-color: $bg;
+}
+.caps-on {
+  color: $green;
+  background-color: $bg;
+}
+.num-off {
+  color: $red;
+  background-color: $bg;
+}
+.num-on {
+  color: $green;
+  background-color: $bg;
+}
+.settings-btn {
+  color: $cyan;
+  padding-top: 5px;
+}
+.clock {
+  color: $cyan;
+  font-size: 25px;
+  //padding-top: 10px;
+  //padding-bottom: 10px;
+  font-weight: bold;
+}
+.sissytray {
+  padding: 5px;
+}
+.power-menu-btn {
+  color: $red;
+  button {
+    padding-bottom: 10px;
+  }
+}
+.connected {
+  color: $green;
+}
+.disconnected {
+  color: $red;
+}

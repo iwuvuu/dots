@@ -1,0 +1,48 @@
+
+(deflisten percentloop :initial 0 `i=0; while true; do let i=$i+1; echo $i; sleep .05; done`)	
+
+(defwidget test []
+	(box :class "uBox"
+		(overlay
+			:space-evenly false
+			(box :class "clock-box")
+
+			(circular-progress 
+				:halign "center"
+				:valign "center"
+				:width 200
+				:height 200
+							:start-at 75 
+							:thickness 80
+							:value "${(formattime(EWW_TIME, "%S")*100)/60+1}"
+							:class "test-progress-one"
+				(label :text "x" :class "weather-high")
+			)
+			(circular-progress 
+				:halign "center"
+				:valign "center"
+				:width 200
+				:height 200
+							:start-at 75 
+							:thickness 80
+							:value "${(formattime(EWW_TIME, "%S")*100)/60-2}"
+							:class "test-progress-two"
+				(label :text "${formattime(EWW_TIME, "%S")}":class "weather-high")
+			)
+		)
+	)
+)
+
+(defwindow test 
+	:monitor 0
+  :geometry (geometry
+    :x "0px"
+    :y "0px"
+    :width "500px"
+    :height "500px"
+    :anchor "center center")
+  :stacking "fg"
+  :exclusive false 
+  :namespace "overlay"
+  (test)
+)

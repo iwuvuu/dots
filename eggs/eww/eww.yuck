@@ -1,0 +1,12 @@
+(include "vars.yuck")
+;(include "widgets/topbar/topBar.yuck")
+;(include "widgets/leftBar/leftBar.yuck")
+;;(include "widgets/test.yuck")
+;;(include "widgets/osd/osdVolume.yuck")
+;;(include "widgets/powerMenu/powerMenu.yuck")
+;(include "widgets/settings/settings.yuck")
+(include "types/snazzy/index.yuck")
+
+(defwidget hSpacer []
+  (label :text "‎ " :class "hSpacer")
+)
