@@ -16,11 +16,11 @@ For Arch:
 1. Install yay or your favourite AUR helper (change commands accordingly)
 2. Install these dependencies:
 ``` bash
-yay -S rofi-wayland
+yay -S rofi-wayland hyprpm wmctrl
 ```
 3. Install optional dependencies:
 ``` bash
-yay -S kitty nvim
+yay -S kitty nvim zsh zsh-syntax-highlighting
 ```
 
 ### List of dependencies
@@ -28,6 +28,7 @@ yay -S kitty nvim
 **Necessary dependencies**
 
 - rofi-wayland - used as an application launcher and for other menus
+- wmctrl - tool to control hyprland from terminal
 
 **Optional dependencies**
 
