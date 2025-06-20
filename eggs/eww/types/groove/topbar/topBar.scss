@@ -50,3 +50,69 @@
 .green {
   color: $green;
 }
+.blue {
+  color: $blue;
+}
+.whiteDark {
+  color: $whiteDark;
+}
+.orange {
+  color: $orange;
+}
+
+// Text
+
+.widgetText {
+  font-size: 16px;
+  font-weight: bold;
+  color: $fg;
+}
+
+// Widgets
+
+// Workspaces
+.workspace-entry.current {
+  color: $cyan;
+}
+.workspace-entry.occupied {
+  color: $white;
+}
+.workspace-entry.empty {
+  color: $whiteDark;
+}
+.workspace-entry {
+  margin: 0px 5px;
+}
+
+// Brightness
+
+
+
+.brightnessScale scale trough highlight {
+  background-color: $yellow;
+  border-radius: 50px;
+}
+.brightnessScale scale trough {
+  background-color: $bg;
+  border-radius: 50px;
+  min-height: 10px;
+  min-width: 100px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+.volumeScale scale trough highlight {
+  background-color: $blue;
+  border-radius: 50px;
+}
+.volumeScale scale trough {
+  background-color: $bg;
+  border-radius: 50px;
+  min-height: 10px;
+  min-width: 100px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+
+
+

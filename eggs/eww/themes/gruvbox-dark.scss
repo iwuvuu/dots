@@ -1,67 +1,19 @@
 $bg:rgba(#1d2021,0.8); // {< rcol(data.colors.bg0) >}
-$red:#fb4934; // {< rcol(data.colors.redLight) >}
-$yellow:#fabd2f; // {< rcol(data.colors.yellowLight) >}
-$green:#b8bb26; // {< rcol(data.colors.greenLight) >}
+$fg:#ebdbb2; // {< rcol(data.colors.foreground) >}
 $hover:rgba(#928374, 0.5); // {< rcol(data.colors.whiteDark) >}
-$fg: #546E7A;
-$fg_alt: #94A7B0;
-//$bg: #FAFAFA;
-//$bg: rgba(29, 32, 33, 0.8);
-$bg_alt: #F2F2F2;
-$contrast: #E7E7E8;
-//$hover: #D2D4D5;
-$bg-dark: $contrast;
-$bg-darker: #E7E7E8;
-$highlight: #D3E1E8;
-$disabled: #D2D4D5;
-$comments: #AABFC9;
-
-//$red: #E53935;
-$orange: #F76D47;
-//$yellow: #F6A434;
-//$green: #91B859;
-$blue: #6182B8;
-$cyan: #39ADB5;
-$purple: #7C4DFF;
-
-//$accent: #00BCD4;
-$paleblue: #8796B0;
-$pink: #FF5370;
-$accent: #80CBC4;
 
 
-$bg_dim: $bg; 
-$bg0: $highlight;
-$bg1: #F4F0D9;
-$bg2: $bg_dim;
-$bg3: #E6E2CC;
-$bg4: $bg-dark;
-$bg5: $bg-darker;
-$bg_red: #FBE3DA;
-$bg_visual: #EAEDC8;
-$bg_yellow: #FAEDCD;
-$bg_green: #F0F1D2;
-$bg_blue: #E9F0E9;
-$aqua: #35A77C;
+$red:#fb4934; // {< rcol(data.colors.redLight) >}
+$green:#b8bb26; // {< rcol(data.colors.greenLight) >}
+$yellow:#fabd2f; // {< rcol(data.colors.yellowLight) >}
+$blue:#83a598; // {< rcol(data.colors.blueLight) >}
+$cyan:#8ec07c; // {< rcol(data.colors.cyanLight) >}
+$cyanDark:#689d6a; // {< rcol(data.colors.cyanDark) >}
+$white:#a89984; // {< rcol(data.colors.whiteLight) >}
+$whiteDark:#928374; // {< rcol(data.colors.whiteDark) >}
 
-$statusline1: #93B259;
-$statusline2: #708089;
-$statusline3: #E66878;
-$gray1: #A6B0A0;
-$gray2: #939F91;
-$gray3: #829181;
 
-$crust: #dce0e8;
-$base: #eff1f5;
-$surface1: #bcc0cc;
-$overlay1: #8c8fa1;
-$subtext1: #5c5f77;
-$text: #4c4f69;
 
-$sky: #04a5e5;
-$sapphire: #209fb5;
-$lavender: #7287fd;
-$black: #000000;
 
-$PMBackground: rgba(0, 0, 0, 0.6);
-//$PMBackground: #d20f39;
+$orange:#fe8019; // {< rcol(data.colors.accentLight) >}
+

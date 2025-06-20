@@ -1,5 +1,97 @@
 ;; ── WIDGETS ─────────────────────────────────────────────────────────
 
+;; App launcher
+(defvar rofi "eww update appToggle='on' && rofi -show drun -theme ~/.config/rofi/launcher.rasi &")
+(defvar appToggle "off")
+(defwidget appLauncher [] 
+  (box :width 35
+    (eventbox :cursor "pointer" :class "hover"
+      :onclick "${appToggle == "off" ? rofi : "eww update appToggle='off' && killall rofi"}" 
+      (label :text "󰣇" :class "singleIcon blue")
+    )
+  )
+)
+
+;; Workspace overview
+(defvar hyprOverview "hyprctl dispatch overview:toggle")
+(defwidget hyprOverview []
+  (box :width 35
+    (eventbox :cursor "pointer" :class "hover" :onclick {hyprOverview}
+      (label :text "󰹰" :class "singleIcon orange")
+    )
+  )
+)
+
+
+;; Workspaces
+(deflisten getWS :initial "[]" "bash ~/.config/eww/scripts/get-workspaces.sh")
+(deflisten getWS2 :initial "[]" "bash ~/.config/eww/scripts/get-workspaces2.sh")
+(deflisten currWS :initial "1" "bash ~/.config/eww/scripts/get-active-workspace.sh")
+
+(defwidget workspaces []
+  (eventbox 
+		:onscroll "bash ~/.config/eww/scripts/change-active-workspace {} ${currWS}" 
+		:class "workspace"
+    (box 
+			:space-evenly true
+      (label 
+				:text "${getWS}${currWS}" 
+				:visible false)
+      (for ws in getWS
+        (eventbox 
+					:onclick "hyprctl dispatch workspace ${ws.id}" 
+					:cursor "pointer" 
+					:class "hover"
+          (box 
+						:class "workspace-entry ${ws.windows > 0 ? "occupied" : "empty"}"         
+						(label 
+							:text "${ws.id == currWS ? "" : ws.windows > 0 ? "" : ""}" 
+							:class "workspace-entry ${ws.id == currWS ? "current" : ""}" 
+						)
+          )
+        )
+      )
+    )
+  )
+)
+
+(defwidget workspaces2 []
+  (eventbox :onscroll "bash ~/.config/eww/scripts/change-active-workspace {} ${currWS}" :class "workspace"
+    (box :space-evenly true       
+			(label :text "${getWS2}${currWS}" :visible false)
+      (for ws in getWS2
+        (eventbox :onclick "hyprctl dispatch workspace ${ws.id}" :cursor "pointer" :class "hover"
+          (box :class "workspace-entry ${ws.windows > 0 ? "occupied" : "empty"}"
+            (label :text "${ws.id == currWS ? "" : ws.windows > 0 ? "" : ""}" :class "workspace-entry ${ws.id == currWS ? "current" : ""}" )
+            )
+          )
+        )
+      )
+    )
+  )
+
+;; Music widget
+(deflisten songTitle :initial "Nothing" "playerctl --follow metadata --format {{title}}")
+(deflisten songArtist :initial "Noone" "playerctl --follow metadata --format {{artist}}")
+(defwidget song []
+  (box
+    (eventbox
+      (box 
+				:class "widgetText"
+				:space-evenly false
+        (label 
+					:text "${songTitle == '' ? 'Nothing' : ' ‎ ${songTitle}'}" :limit-width 30 :wrap true)
+        (label 
+					:text "‎ -‎ ")
+        (label 
+					:text "${songArtist == '' ? 'Noone' : '${songArtist}‎ '}" :limit-width 30:wrap true)
+      )
+    )
+  )
+)
+
+
+
 ;; Time widget
 (defvar time-toggle 0) ;Current children in the stack
 (defwidget time []
@@ -13,13 +105,13 @@
 					:selected {time-toggle}
 					(box
 						(label
-							:class "time-text"
+							:class "widgetText"
 							:text {formattime(EWW_TIME, "%H:%M")}
 						)
 					)
 					(box
 						(label
-							:class "time-text"
+							:class "widgetText"
 							:text {formattime(EWW_TIME, "%a, %B %d")}
 						)
 					)
@@ -31,88 +123,68 @@
 
 
 
+;; More settings
+(defwidget more []
+	(box
+		:width 35
+		:class "singleIcon"
+		(eventbox
+			:cursor "pointer"
+			:class "hover"
+			(box
+				(label :text "")
+			)
+		)
+	)
+)
 
-(deflisten songTitle :initial "Nothing" "playerctl --follow metadata --format {{title}}")
-(deflisten songArtist :initial "Noone" "playerctl --follow metadata --format {{artist}}")
-(defwidget song []
+;; Wifi
+(deflisten wifi :initial "dead" "~/.config/eww/scripts/wifi-col.sh" )
+(defwidget wifi []
   (box
+		:width 35
+		:class "singleIcon ${wifi == 'connected' ? 'green' : wifi == 'off' ? 'red' : 'whiteDark'}"
     (eventbox
-      (box :class "light-box" :space-evenly false
-        (label :text "${songTitle == '' ? 'Nothing' : ' ‎ ${songTitle}'}" :limit-width 30 :wrap true)
-        (label :text "‎ -‎ ")
-        (label :text "${songArtist == '' ? 'Noone' : '${songArtist}‎ '}" :limit-width 30:wrap true)
+			:onclick "kitty -e nmtui &"
+			:class "hover"
+			:cursor "pointer"
+      (box
+        (label :text "")
+      )
+    )
+  )
+)
+
+;; Bluetooth
+(deflisten bluetooth :initial "no" "~/.config/eww/scripts/blue-col.sh" )
+(defwidget bluetooth []
+  (box
+		:width 35
+		:class "singleIcon ${bluetooth == 'yes' ? 'green' : 'red'}"
+    (eventbox
+			:onclick "blueman-manager &"
+			:class "hover"
+			:cursor "pointer"
+      (box
+        (label :text "󰂯")
       )
     )
   )
 )
 
 
-
-(deflisten getWS :initial "[]" "bash ~/.config/eww/scripts/get-workspaces.sh")
-(deflisten getWS2 :initial "[]" "bash ~/.config/eww/scripts/get-workspaces2.sh")
-(deflisten currWS :initial "1" "bash ~/.config/eww/scripts/get-active-workspace.sh")
-
-(defwidget workspaces []
-  (eventbox :onscroll "bash ~/.config/eww/scripts/change-active-workspace {} ${currWS}" :class "workspaceScroll"
-    (box :space-evenly true
-      (label :text "${getWS}${currWS}" :visible false)
-      (for ws in getWS
-        (eventbox :onclick "hyprctl dispatch workspace ${ws.id}" :cursor "pointer" :class "ws-hover"
-          (box :class "workspace-entry ${ws.windows > 0 ? "occupied" : "empty"}" ;;:width 40
-            (label :text "${ws.id == currWS ? "" : ws.windows > 0 ? "" : ""}" :class "workspace-entry ${ws.id == currWS ? "current" : ""}" )
-            )
-          )
-        )
-      )
-    )
-  )
-
-(defwidget workspaces2 []
-  (eventbox :onscroll "bash ~/.config/eww/scripts/change-active-workspace {} ${currWS}" :class "workspaceScroll"
-    (box :space-evenly true :class "workspaceScroll"
-      (label :text "${getWS2}${currWS}" :visible false)
-      (for ws in getWS2
-        (eventbox :onclick "hyprctl dispatch workspace ${ws.id}" :cursor "pointer" :class "ws-hover"
-          (box :class "workspace-entry ${ws.windows > 0 ? "occupied" : "empty"}"
-            (label :text "${ws.id == currWS ? "" : ws.windows > 0 ? "" : ""}" :class "workspace-entry ${ws.id == currWS ? "current" : ""}" )
-            )
-          )
-        )
-      )
-    )
-  )
-
-(defvar hyprOverview "hyprctl dispatch overview:toggle")
-(defwidget hyprOverview []
-  (box :class "light-box" :width 40
-    (eventbox :cursor "pointer" :class "barEvent" :onclick {hyprOverview}
-      (label :text "󰹰" :class "singleIcon")
-    )
-  )
-)
-
-(defvar rofi "eww update appToggle='on' && rofi -show drun -theme ~/.config/rofi/themes/Applauncher/Applauncher.rasi &")
-(defvar appToggle "off")
-(defwidget appLauncher [] 
-  (box :class "dark-box" :width 37
-    (eventbox :cursor "pointer" :class "barEvent"
-      :onclick "${appToggle == "off" ? rofi : "eww update appToggle='off' && killall rofi"}" 
-      (label :text "󰣇" :class "singleIcon")
-    )
-  )
-)
-
+;; Volume
 (defpoll current-volume :interval "1s" 
   "amixer sget Master | grep 'Mono: Playback' | awk '{print $4}' | tr -d '[%]'")
 (defvar volumeToggle false)
 (defwidget barVolume []
-  (box :class "light-box iconSpace"
+  (box :class "iconSpace blue"
 		:space-evenly false
     (eventbox :cursor "pointer"
       :onhover "eww update volumeToggle=true"
       :onhoverlost "eww update volumeToggle=false"
       :onscroll "bash ~/.config/eww/scripts/volume_scroll.sh --{}"
-      (box :space-evenly false :class "mybar-volume"
+      (box :space-evenly false :class "volumeScale"
         (box :width 30
           (label :class "singleIcon" 
             :text "${current-volume == 0 ? '' :
@@ -122,10 +194,10 @@
         )
         (revealer :transition "slideleft" :reveal volumeToggle :duration "550ms"
           (box :space-evenly false
-;            (scale :mix 0 :max 101 :orientation "h" :flipped false :halign "center" :value {current-volume}
-;            :onchange "amixer sset Master {}%"
-;            )
-            (label :text "${current-volume}%" :class "volume-text")
+            (scale :mix 0 :max 101 :orientation "h" :flipped false :halign "center" :value {current-volume}
+            :onchange "amixer sset Master {}%"
+            )
+;            (label :text "${current-volume}%" :class "volume-text")
           )
         )
       )
@@ -133,17 +205,18 @@
   )
 )
 
+;; Brightness
 (defpoll current-brightness :interval "1s" "brightnessctl g")
 (defvar brightnessToggle false)
 (defwidget barBrightness []
-  (box :class "dark-box iconSpace"
+  (box :class "yellow iconSpace"
 		:space-evenly false
     (eventbox :cursor "pointer"
       :onhover "eww update brightnessToggle=true"
       :onhoverlost "eww update brightnessToggle=false"
       :onscroll "bash ~/.config/eww/scripts/brightness_scroll.sh --{}"
-      (box :space-evenly false :class "mybar-volume"
-        (box :width 30
+      (box :space-evenly false :class "brightnessScale"
+        (box
           (label :class "singleIcon" 
             :text "${current-brightness == 0 ? '󰃝' :
             current-brightness < 40 ? '󰃞' :
@@ -151,54 +224,26 @@
           )
         )
         (revealer :transition "slideleft" :reveal brightnessToggle :duration "550ms"
-          (box :space-evenly false
-            (label :text "${round((current-brightness * 100) / 255, 0)}%" :class "volume-text")
-          )
+            (scale :mix 0 :max 256 :orientation "h" :flipped false :halign "center" 
+            :value {current-brightness}
+            :onchange "brightnessctl s {}"
+            )
+;          (box :space-evenly false
+;            (label :text "${round((current-brightness * 100) / 255, 0)}%" :class "volume-text")
+;          )
         )
       )
     )
   )
 )
 
-(defwidget bluetooth []
-  (box
-		:class "iconSpace singleIcon"
-    (eventbox
-      (box
-        (label :text "󰂯")
-      )
-    )
-  )
-)
-(defwidget wifi []
-  (box
-		:class "iconSpace singleIcon"
-    (eventbox
-      (box
-        (label :text "")
-      )
-    )
-  )
-)
-(defwidget more []
-	(box
-		:class "iconSpace singleIcon"
-		(eventbox
-			(box
-				(label :text "")
-			)
-		)
-	)
-)
 
 ;; Battery widgets
 
 (defwidget battery []
 	(box
-		:width 35
+		:tooltip "${EWW_BATTERY["BAT0"]["capacity"]}%"
 		(eventbox
-			:class "hover"
-			:cursor "pointer"
 			(box 
 				(label
 					:text "${EWW_BATTERY["BAT0"]["status"] != "Discharging" ?
@@ -217,7 +262,7 @@
 					:class "${EWW_BATTERY["BAT0"]["capacity"] < 40 ?
 						"red": EWW_BATTERY["BAT0"]["capacity"] < 80 ?
 						"yellow": "green"
-						} singleIcon"
+						} singleIcon iconSpace"
 				)
       )
 		)
@@ -259,6 +304,8 @@
 			(hSpacer)
 			(appLauncher)
 			(hyprOverview)
+			(hSpacer)
+			(hSpacer)
 			(workspaces)
 			(song)
 		)
@@ -301,6 +348,8 @@
 			(hSpacer)
 			(appLauncher)
 			(hyprOverview)
+			(hSpacer)
+			(hSpacer)
 			(workspaces2)
 			(song)
 		)

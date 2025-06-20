@@ -35,6 +35,7 @@ yay -S kitty nvim zsh zsh-syntax-highlighting
 - hyprpm - wallpaper funcionality for hyprland
 - alsa-utils - using alsa and amixer for volume control and widgets
 - playerctl
+- socat - workspaces in eww bar
 
 **Optional dependencies**
 
