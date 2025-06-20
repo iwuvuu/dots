@@ -1,1 +1,17 @@
 @import "topbar/topBar.scss";
+
+* {
+  font-family: "FiraCode Nerd Font Propo";
+}
+
+.hSpacer {
+  font-size: 10;
+}
+.default {
+  font-size: 20;
+  background-color: $red;
+  color: $fg;
+  //border-radius: 8px;
+  //box-shadow: 0 0 4px 2px $black;
+  //margin: 10px 10px 8px 10px;
+}

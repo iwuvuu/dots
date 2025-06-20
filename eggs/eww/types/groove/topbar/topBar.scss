@@ -1,3 +1,52 @@
-.bar-bg {
+.test {
+  background-color: $red;
+}
+
+.barBg {
   background-color: $bg;
+}
+.barShadow {
+  margin: 0px 0px 8px 0px;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.4), 0 4px 3px 0 rgba(0, 0, 0, 0.4);
+}
+
+.iconSpace {
+  margin: 0px 5px;
+}
+.singleIcon {
+  font-size: 18px;
+  padding: 0px;
+}
+
+@keyframes button-hover-anim {
+  from {background-color: transparent;}
+  to {background-color: $hover;}
+}
+@keyframes button-back-anim {
+  from {background-color: $hover;}
+  to {background-color: transparent;}
+}
+
+
+.hover {
+    background-color: transparent;
+    animation-name: button-back-anim;
+    animation-duration: 0.5s;
+  &:hover {
+    background-color: $hover;
+    animation-name: button-hover-anim;
+    animation-duration: 0.5s;
+  }
+}
+
+
+// Colors
+.red {
+  color: $red;
+}
+.yellow {
+  color: $yellow;
+}
+.green {
+  color: $green;
 }

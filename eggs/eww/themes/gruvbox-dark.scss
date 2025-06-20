@@ -1,23 +1,25 @@
-$bg:rgba(#1d2aaa,0.2);
-//$something: (brum)
-//ui_font = "{data.font.normal}" // {< replace_re(`".*"`, `"{data.font.normal}"`) >}
+$bg:rgba(#1d2021,0.8); // {< rcol(data.colors.bg0) >}
+$red:#fb4934; // {< rcol(data.colors.redLight) >}
+$yellow:#fabd2f; // {< rcol(data.colors.yellowLight) >}
+$green:#b8bb26; // {< rcol(data.colors.greenLight) >}
+$hover:rgba(#928374, 0.5); // {< rcol(data.colors.whiteDark) >}
 $fg: #546E7A;
 $fg_alt: #94A7B0;
 //$bg: #FAFAFA;
 //$bg: rgba(29, 32, 33, 0.8);
 $bg_alt: #F2F2F2;
 $contrast: #E7E7E8;
-$hover: #D2D4D5;
+//$hover: #D2D4D5;
 $bg-dark: $contrast;
 $bg-darker: #E7E7E8;
 $highlight: #D3E1E8;
 $disabled: #D2D4D5;
 $comments: #AABFC9;
 
-$red: #E53935;
+//$red: #E53935;
 $orange: #F76D47;
-$yellow: #F6A434;
-$green: #91B859;
+//$yellow: #F6A434;
+//$green: #91B859;
 $blue: #6182B8;
 $cyan: #39ADB5;
 $purple: #7C4DFF;

@@ -29,143 +29,8 @@
 	)
 )
 
-;; Battery widgets
-(defwidget battery []
-  (box 
-		:class "uBox" 
-    (eventbox 
-			:class "barEvent" 
-			:cursor "pointer"  
-      (box 
-        (tooltip
-				
-					;; Tooltip contents
-					
-					(box 
-						:width 200 
-						:height 100 
-						:class "popupBox shadow-box" 
-						:space-evenly false 
-						:orientation "h" 
-						(circular-progress  
-							:start-at 75 
-							:width 70 :thickness 10
-							:value "${EWW_BATTERY["BAT0"]["capacity"]}" 
-							:class "${EWW_BATTERY["BAT0"]["capacity"] < 40 ?
-								"red":EWW_BATTERY["BAT0"]["capacity"] < 80 ?
-								"yellow": "green"
-								} battery-progress"
-							(label 
-								:text "${EWW_BATTERY["BAT0"]["capacity"]}%" 
-								:class "battery-tooltip")
-						)
-						(box 
-							:orientation "v" 
-							:hexpand true 
-							:space-evenly false 
-							:valign "center"
-							(label 
-								:text "Status:" 
-								:class "battery-tooltip")
-							(label 
-								:text "${EWW_BATTERY["BAT0"]["status"]}"
-								:class "${EWW_BATTERY["BAT0"]["status"] == "Full" ?
-									"green":EWW_BATTERY["BAT0"]["status"] == "Charging" ?
-									"yellow":"red"
-								} battery-status"
-							)
-						)
-					)
 
-					;; Widget contents
-				
-					(box 
-						:space-evenly false
-						(label 
-							:text "${EWW_BATTERY["BAT0"]["status"] != "Discharging" ?
-								"󰂄": EWW_BATTERY["BAT0"]["capacity"] < 10 ?
-								"󰂎": EWW_BATTERY["BAT0"]["capacity"] < 20 ?
-								"󰁺": EWW_BATTERY["BAT0"]["capacity"] < 30 ?
-								"󰁻": EWW_BATTERY["BAT0"]["capacity"] < 40 ?
-								"󰁼": EWW_BATTERY["BAT0"]["capacity"] < 50 ?
-								"󰁽": EWW_BATTERY["BAT0"]["capacity"] < 60 ?
-								"󰁾": EWW_BATTERY["BAT0"]["capacity"] < 70 ?
-								"󰁿": EWW_BATTERY["BAT0"]["capacity"] < 80 ?
-								"󰂀": EWW_BATTERY["BAT0"]["capacity"] < 90 ?
-								"󰂁": EWW_BATTERY["BAT0"]["capacity"] < 98 ?
-								"󰂂":"󰁹"
-							}"
-							:class "${EWW_BATTERY["BAT0"]["capacity"] < 40 ?
-								"red": EWW_BATTERY["BAT0"]["capacity"] < 80 ?
-								"yellow": "green"
-								} icon"
-						)
-          )
-        )
-      )
-    )
-  )
-)
 
-(defpoll current-volume :interval "1s" 
-  "amixer sget Master | grep 'Mono: Playback' | awk '{print $4}' | tr -d '[%]'")
-(defvar volumeToggle false)
-(defwidget barVolume []
-  (box :class "light-box :space-evenly false"
-    (eventbox :cursor "pointer"
-      :onhover "eww update volumeToggle=true"
-      :onhoverlost "eww update volumeToggle=false"
-      :onscroll "bash ~/.config/eww/scripts/volume_scroll.sh --{}"
-      (box :space-evenly false :class "mybar-volume"
-        (box :width 30
-          (label :class "singleIcon" 
-            :text "${current-volume == 0 ? '' :
-            current-volume < 20 ? '' :
-            current-volume < 51 ? '' : ''}"
-          )
-        )
-        (revealer :transition "slideleft" :reveal volumeToggle :duration "550ms"
-          (box :space-evenly false
-;            (scale :mix 0 :max 101 :orientation "h" :flipped false :halign "center" :value {current-volume}
-;            :onchange "amixer sset Master {}%"
-;            )
-            (label :text "${current-volume}%" :class "volume-text")
-          )
-        )
-      )
-    )
-  )
-)
-
-(defpoll current-brightness :interval "1s" "brightnessctl g")
-(defvar brightnessToggle false)
-(defwidget barBrightness []
-  (box :class "dark-box :space-evenly false"
-    (eventbox :cursor "pointer"
-      :onhover "eww update brightnessToggle=true"
-      :onhoverlost "eww update brightnessToggle=false"
-      :onscroll "bash ~/.config/eww/scripts/brightness_scroll.sh --{}"
-      (box :space-evenly false :class "mybar-volume"
-        (box :width 30
-          (label :class "singleIcon" 
-            :text "${current-brightness == 0 ? '󰃝' :
-            current-brightness < 40 ? '󰃞' :
-            current-brightness < 100 ? '󰃟' : '󰃠'}"
-          )
-        )
-        (revealer :transition "slideleft" :reveal brightnessToggle :duration "550ms"
-          (box :space-evenly false
-;            (scale :mix 0 :max 256 :orientation "h" :flipped false :halign "center" 
-;            :value {current-brightness}
-;            :onchange "brightnessctl s {}"
-;            )
-            (label :text "${round((current-brightness * 100) / 255, 0)}%" :class "volume-text")
-          )
-        )
-      )
-    )
-  )
-)
 
 (deflisten songTitle :initial "Nothing" "playerctl --follow metadata --format {{title}}")
 (deflisten songArtist :initial "Noone" "playerctl --follow metadata --format {{artist}}")
@@ -181,20 +46,7 @@
   )
 )
 
-;; Powermenu
-(defwidget powermenu [monitor] 
-  (box :class "uBox" 
-    (eventbox 
-			:cursor "pointer" 
-			:class "barEvent"
-      :onclick "bash ~/.config/eww/scripts/powermenu.sh --${monitor}" 
-      (label 
-				:text "󰐥" 
-				:class "red icon"
-			)
-    )
-  )
-)
+
 
 (deflisten getWS :initial "[]" "bash ~/.config/eww/scripts/get-workspaces.sh")
 (deflisten getWS2 :initial "[]" "bash ~/.config/eww/scripts/get-workspaces2.sh")
@@ -250,8 +102,67 @@
   )
 )
 
+(defpoll current-volume :interval "1s" 
+  "amixer sget Master | grep 'Mono: Playback' | awk '{print $4}' | tr -d '[%]'")
+(defvar volumeToggle false)
+(defwidget barVolume []
+  (box :class "light-box iconSpace"
+		:space-evenly false
+    (eventbox :cursor "pointer"
+      :onhover "eww update volumeToggle=true"
+      :onhoverlost "eww update volumeToggle=false"
+      :onscroll "bash ~/.config/eww/scripts/volume_scroll.sh --{}"
+      (box :space-evenly false :class "mybar-volume"
+        (box :width 30
+          (label :class "singleIcon" 
+            :text "${current-volume == 0 ? '' :
+            current-volume < 20 ? '' :
+            current-volume < 51 ? '' : ''}"
+          )
+        )
+        (revealer :transition "slideleft" :reveal volumeToggle :duration "550ms"
+          (box :space-evenly false
+;            (scale :mix 0 :max 101 :orientation "h" :flipped false :halign "center" :value {current-volume}
+;            :onchange "amixer sset Master {}%"
+;            )
+            (label :text "${current-volume}%" :class "volume-text")
+          )
+        )
+      )
+    )
+  )
+)
+
+(defpoll current-brightness :interval "1s" "brightnessctl g")
+(defvar brightnessToggle false)
+(defwidget barBrightness []
+  (box :class "dark-box iconSpace"
+		:space-evenly false
+    (eventbox :cursor "pointer"
+      :onhover "eww update brightnessToggle=true"
+      :onhoverlost "eww update brightnessToggle=false"
+      :onscroll "bash ~/.config/eww/scripts/brightness_scroll.sh --{}"
+      (box :space-evenly false :class "mybar-volume"
+        (box :width 30
+          (label :class "singleIcon" 
+            :text "${current-brightness == 0 ? '󰃝' :
+            current-brightness < 40 ? '󰃞' :
+            current-brightness < 100 ? '󰃟' : '󰃠'}"
+          )
+        )
+        (revealer :transition "slideleft" :reveal brightnessToggle :duration "550ms"
+          (box :space-evenly false
+            (label :text "${round((current-brightness * 100) / 255, 0)}%" :class "volume-text")
+          )
+        )
+      )
+    )
+  )
+)
+
 (defwidget bluetooth []
   (box
+		:class "iconSpace singleIcon"
     (eventbox
       (box
         (label :text "󰂯")
@@ -261,6 +172,7 @@
 )
 (defwidget wifi []
   (box
+		:class "iconSpace singleIcon"
     (eventbox
       (box
         (label :text "")
@@ -268,6 +180,68 @@
     )
   )
 )
+(defwidget more []
+	(box
+		:class "iconSpace singleIcon"
+		(eventbox
+			(box
+				(label :text "")
+			)
+		)
+	)
+)
+
+;; Battery widgets
+
+(defwidget battery []
+	(box
+		:width 35
+		(eventbox
+			:class "hover"
+			:cursor "pointer"
+			(box 
+				(label
+					:text "${EWW_BATTERY["BAT0"]["status"] != "Discharging" ?
+						"󰂄": EWW_BATTERY["BAT0"]["capacity"] < 10 ?
+						"󰂎": EWW_BATTERY["BAT0"]["capacity"] < 20 ?
+						"󰁺": EWW_BATTERY["BAT0"]["capacity"] < 30 ?
+						"󰁻": EWW_BATTERY["BAT0"]["capacity"] < 40 ?
+						"󰁼": EWW_BATTERY["BAT0"]["capacity"] < 50 ?
+						"󰁽": EWW_BATTERY["BAT0"]["capacity"] < 60 ?
+						"󰁾": EWW_BATTERY["BAT0"]["capacity"] < 70 ?
+						"󰁿": EWW_BATTERY["BAT0"]["capacity"] < 80 ?
+						"󰂀": EWW_BATTERY["BAT0"]["capacity"] < 90 ?
+						"󰂁": EWW_BATTERY["BAT0"]["capacity"] < 98 ?
+						"󰂂":"󰁹"
+					}"
+					:class "${EWW_BATTERY["BAT0"]["capacity"] < 40 ?
+						"red": EWW_BATTERY["BAT0"]["capacity"] < 80 ?
+						"yellow": "green"
+						} singleIcon"
+				)
+      )
+		)
+	)
+)
+
+
+;; Powermenu
+(defwidget powermenu [monitor] 
+  (box :class "singleIcon"
+		:width 35
+    (eventbox 
+			:cursor "pointer" 
+			:class "hover"
+      :onclick "bash ~/.config/eww/scripts/powermenu.sh --${monitor}"
+      (label 
+				:text "" 
+				:class "red"
+			)
+    )
+  )
+)
+
+
 
 ;; ── BAR SETUP ───────────────────────────────────────────────────────
 ;;                                                           ▲
@@ -276,29 +250,55 @@
 
 (defwidget bar []
 	(centerbox
-		:space-evenly false
-		(box
-			(label :text "blablabla")
-		)
-		(box
-			(time)
-		)
-		(box
-			(powermenu
-				:monitor 0
-			)
-		)
-	)
-)
-
-(defwidget bar2 []
-	(centerbox
-		:class "bar-bg"
+		:class "barBg"
 		:space-evenly false
 		:orientation "h"
 		(box ;left widgets
 			:halign "start"
 			:space-evenly false
+			(hSpacer)
+			(appLauncher)
+			(hyprOverview)
+			(workspaces)
+			(song)
+		)
+		(box ;center widgets
+			:halign "center"
+			:space-evenly false
+			(time)
+		)
+		(box ;right widgets
+			:halign "end"
+			:space-evenly false
+			(more)
+			(wifi)
+			(bluetooth)
+			(barVolume)
+			(barBrightness)
+			(battery)
+			(powermenu
+				:monitor 0
+			)
+			(hSpacer)
+		)
+	)
+)
+(defwidget shadowBar []
+	(box
+		:class "barShadow"
+	)
+)
+
+
+(defwidget bar2 []
+	(centerbox
+		:class "barBg"
+		:space-evenly false
+		:orientation "h"
+		(box ;left widgets
+			:halign "start"
+			:space-evenly false
+			(hSpacer)
 			(appLauncher)
 			(hyprOverview)
 			(workspaces2)
@@ -312,6 +312,7 @@
 		(box ;right widgets
 			:halign "end"
 			:space-evenly false
+			(more)
 			(wifi)
 			(bluetooth)
 			(barVolume)
@@ -320,11 +321,15 @@
 			(powermenu
 				:monitor 1
 			)
+			(hSpacer)
 		)
 	)
 )
-
-
+(defwidget shadowBar2 []
+	(box
+		:class "barShadow"
+	)
+)
 
 
 
@@ -344,7 +349,8 @@
   :stacking "fg"
   :exclusive true
   :namespace "overlay"
-  (bar))
+  (bar)
+)
 
 (defwindow bar2 
   :monitor 1
@@ -357,4 +363,31 @@
   :stacking "fg"
   :exclusive true
   :namespace "overlay"
-  (bar2))
+  (bar2)
+)
+(defwindow shadowBar2 
+  :monitor 1
+  :geometry (geometry
+    ;:x "10px"
+    :y "-30px"
+    :width "100%"
+    :height "38px"
+    :anchor "top center")
+  :stacking "bottom"
+  :exclusive false
+  :namespace "overlay"
+  (shadowBar2)
+)
+(defwindow shadowBar
+  :monitor 0
+  :geometry (geometry
+    ;:x "10px"
+    :y "-30px"
+    :width "100%"
+    :height "38px"
+    :anchor "top center")
+  :stacking "bottom"
+  :exclusive false
+  :namespace "overlay"
+  (shadowBar)
+)
