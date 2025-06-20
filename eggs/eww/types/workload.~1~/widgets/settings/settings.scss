@@ -1,0 +1,39 @@
+.ST-Base {
+  //background-color: $base;
+  font-size: 40;
+}
+.settings-title {
+  font-size: 30;
+  font-weight: bold;
+  //margin: 0px 0px 10px 0px;
+  padding: 10px 0px 10px 0px;
+  background-color: $crust;
+  border-radius: 10px 10px 0px 0px;
+}
+.settings-title-text {
+  margin: 20px 0px 0px 0px;
+}
+.settings-element {
+  background-color: $crust;
+  margin: 10px 10px 0px 10px; 
+  border-radius: 10px;
+  border: 10px solid $crust;
+}
+.settings-button {
+  background-color: $surface1;
+  border-radius: 10px;
+  font-size: 25;
+  &:hover {
+    background-color: $sky;
+    color: $base;
+  }
+}
+.settings-subtext{
+  font-size: 15;
+  &:hover{
+    color: $sky;
+  }
+}
+.settings-big-icon {
+  margin: 0px 10px 0px 0px;
+}

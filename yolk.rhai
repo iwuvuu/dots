@@ -21,7 +21,7 @@ export let eggs = #{
 	},
 	eww: #{
 		targets: "~/.config/eww",
-		templates: ["*.yuck, *.scss"],
+		templates: ["**/*.scss"],
 		enabled: true,
 	},
 };
@@ -30,6 +30,7 @@ const themes = #{
 	gruvbox: #{
 		bg0: "#1d2021",
 		background: "#1d2021",
+		backgroundAlpha: 0.8,
 		bg3: "#665c54",
     foreground: "#ebdbb2",
 		accentDark: "#d65d0e",
@@ -89,6 +90,11 @@ const opts = #{
 		out: 10,
 	},
 	border: 3,
+	text: "bac",
+};
+
+const transparency = #{
+	background: 0.8,
 };
 
 export const data = #{
@@ -96,4 +102,5 @@ export const data = #{
 	font: fonts.fira,
 	gaps: opts.gaps,
 	border: opts,
+	alpha: transparency,
 };

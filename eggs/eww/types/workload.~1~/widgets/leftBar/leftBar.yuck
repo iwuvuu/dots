@@ -1,0 +1,98 @@
+;; ╭─ Applications ───────────────────────────────────────────────────╮
+(defwidget hotApps []
+  (box :class "barBox" :orientation "v" :space-evenly false
+    (box :class "dark-box" 
+      (eventbox :cursor "pointer" :class "barEvent" :height 30 :width 25 :onclick "kitty -e ~ &"
+        (label :text "" :class "hot-apps-icon")
+      )
+    )
+    (box :class "light-box" 
+      (eventbox :cursor "pointer" :class "barEvent" :height 30 :width 25 :onclick "librewolf &"
+        (label :text "󰈹" :class "hot-apps-icon")
+      )
+    )
+    (box :class "dark-box"
+      (eventbox :cursor "pointer" :class "barEvent" :height 30 :width 25 :onclick "spotify-launcher &"
+        (label :text "" :class "hot-apps-icon")
+      )
+    )
+    (box :class "light-box"
+      (eventbox :cursor "pointer" :class "barEvent" :height 30 :width 25 :onclick "vesktop &"
+        (label :text "" :class "hot-apps-icon")
+      )
+    )
+    (box :class "dark-box"
+      (eventbox :cursor "pointer" :class "barEvent" :height 30 :width 25 :onclick "steam &"
+        (label :text "" :class "hot-apps-icon")
+      )
+    )
+    (box :class "light-box"
+      (eventbox :cursor "pointer" :class "barEvent" :height 30 :width 25 :onclick "joplin-desktop &"
+        (label :text "󰠮" :class "hot-apps-icon")
+      )
+    )
+    (box :class "dark-box"
+      (eventbox :cursor "pointer" :class "barEvent" :height 30 :width 25 :onclick "krita &"
+        (label :text "" :class "hot-apps-icon")
+      )
+    )
+    (box :class "light-box"
+      (eventbox :cursor "pointer" :class "barEvent" :height 30 :width 25 :onclick "gimp &"
+        (label :text "" :class "hot-apps-icon")
+      )
+    )
+    (box :class "dark-box"
+      (eventbox :cursor "pointer" :class "barEvent" :height 30 :width 25 :onclick "keepassxc &"
+        (label :text "󰌾" :class "hot-apps-icon")
+      )
+    )
+  )
+)
+;; ╰──────────────────────────────────────────────────────────────────╯
+;; ╭─ Systray ────────────────────────────────────────────────────────╮
+(defwidget sissytray []
+  (eventbox :cursor "pointer" :class "dark-box"
+    (systray :class "sissytray" :orientation "v" :space-evenly false :icon-size 17 
+      :prepend-new true :spacing 5)
+  )
+)
+;; ╰────────────────────────────────────────────────────────────────────╯
+
+
+(defwidget leftBar []
+  (centerbox :class "default-left" :orientation "v" :space-evenly false
+    (box :orientation "v" :valign "start" :space-evenly false
+      (hotApps)
+      ;(sissytray)
+    )
+    (box)
+    (box)
+  )
+)
+
+(defwindow leftBar 
+  :monitor 0
+  :geometry (geometry
+    :x "0px"
+    :y "0px"
+    :width "40px"
+    :height "100%"
+    :anchor "left center")
+  :stacking "fg"
+  :exclusive true
+  :namespace "bar"
+  (leftBar)
+)
+(defwindow leftBar2 
+  :monitor 1
+  :geometry (geometry
+    :x "0px"
+    :y "0px"
+    :width "40px"
+    :height "100%"
+    :anchor "left center")
+  :stacking "fg"
+  :exclusive true
+  :namespace "bar"
+  (leftBar)
+)

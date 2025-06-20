@@ -30,7 +30,11 @@ yay -S kitty nvim zsh zsh-syntax-highlighting
 - rofi-wayland - used as an application launcher and for other menus
 - wmctrl - tool to control hyprland from terminal
 - hyprland
+    - Hyprspace plugin - overview
+    - hyprsplit - split workspaces (dwm like)
 - hyprpm - wallpaper funcionality for hyprland
+- alsa-utils - using alsa and amixer for volume control and widgets
+- playerctl
 
 **Optional dependencies**
 

@@ -1,0 +1,6 @@
+(include "types/workload/widgets/topbar/topBar.yuck")
+(include "types/workload/widgets/leftBar/leftBar.yuck")
+(include "types/workload/widgets/barPoint/barPoint.yuck")
+(include "types/workload/widgets/osd/osdVolume.yuck")
+(include "types/workload/widgets/powerMenu/powerMenu.yuck")
+(include "types/workload/widgets/settings/settings.yuck")

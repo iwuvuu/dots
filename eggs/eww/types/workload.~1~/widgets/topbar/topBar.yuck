@@ -42,9 +42,9 @@
 ;; ╰──────────────────────────────────────────────────────────────────╯
 
 ;; ╭─ Hyproverview ───────────────────────────────────────────────────╮
-(defvar hyprOverview "hyprctl dispatch overview:toggle")
+(defvar hyprOverview "hyprctl dispatch overview:toggle &")
 (defwidget hyprOverview []
-  (box :class "light-box" :width 40
+  (box :class "light-box" :width 35
     (eventbox :cursor "pointer" :class "barEvent" :onclick {hyprOverview}
       (label :text "󰹰" :class "singleIcon")
     )
@@ -146,10 +146,9 @@
   (box
     (eventbox
       (box :class "light-box" :space-evenly false
-        (label :text "${songTitle == "" ? 'Nothing' : '‎ ${songTitle}'}" :limit-width 30 :wrap true)
+        (label :text "‎ ${songTitle}" :limit-width 30 :wrap true)
         (label :text "‎ -‎ ")
         (label :text "${songArtist}‎ " :limit-width 30:wrap true)
-;"${updatesNumber > 1 ? updatesNumber : '--'}"
       )
     )
   )
@@ -314,77 +313,39 @@
 )
 ;; ╰──────────────────────────────────────────────────────────────────╯
 
-;; ╭─ Battery ────────────────────────────────────────────────────────╮
-(defwidget battery []
-  (box 
-		:class "uBox" 
+;; ╭─ Indicators ─────────────────────────────────────────────────────╮
+(defpoll numPoll :interval "1" :initial "off" `sed -n 1p /sys/class/leds/input*::numlock/brightness`)
+(defpoll capsPoll :interval "1" :initial "off" `sed -n 1p /sys/class/leds/input*::capslock/brightness`)
+(defwidget indicators []
+  (box :class "dark-box" :space-evenly false
     (eventbox 
-			:class "barEvent" 
-			:cursor "pointer"  
-      (box 
-        (tooltip
-				
-					;; Tooltip contents
-					
-					(box 
-						:width 200 
-						:height 100 
-						:class "popupBox shadow-box" 
-						:space-evenly false 
-						:orientation "h" 
-						(circular-progress  
-							:start-at 75 
-							:width 70 :thickness 10
-							:value "${EWW_BATTERY["BAT0"]["capacity"]}" 
-							:class "${EWW_BATTERY["BAT0"]["capacity"] < 40 ?
-								"red":EWW_BATTERY["BAT0"]["capacity"] < 80 ?
-								"yellow": "green"
-								} battery-progress"
-							(label 
-								:text "${EWW_BATTERY["BAT0"]["capacity"]}%" 
-								:class "battery-tooltip")
-						)
-						(box 
-							:orientation "v" 
-							:hexpand true 
-							:space-evenly false 
-							:valign "center"
-							(label 
-								:text "Status:" 
-								:class "battery-tooltip")
-							(label 
-								:text "${EWW_BATTERY["BAT0"]["status"]}"
-								:class "${EWW_BATTERY["BAT0"]["status"] == "Full" ?
-									"green":EWW_BATTERY["BAT0"]["status"] == "Charging" ?
-									"yellow":"red"
-								} battery-status"
-							)
-						)
-					)
+      (box :class "nums"  
+        (label :text "󰎤" :class "${numPoll == 0 ? "off" : "on"}")
+      )
+    )
+    (eventbox
+      (box :class "caps"
+        (label :text "󰬈" :class "${capsPoll == 0 ? "off" : "on"}")
+      )
+    )
+  )
+)
+;; ╰──────────────────────────────────────────────────────────────────╯
 
-					;; Widget contents
-				
-					(box 
-						:space-evenly false
-						(label 
-							:text "${EWW_BATTERY["BAT0"]["status"] != "Discharging" ?
-								"󰂄": EWW_BATTERY["BAT0"]["capacity"] < 10 ?
-								"󰂎": EWW_BATTERY["BAT0"]["capacity"] < 20 ?
-								"󰁺": EWW_BATTERY["BAT0"]["capacity"] < 30 ?
-								"󰁻": EWW_BATTERY["BAT0"]["capacity"] < 40 ?
-								"󰁼": EWW_BATTERY["BAT0"]["capacity"] < 50 ?
-								"󰁽": EWW_BATTERY["BAT0"]["capacity"] < 60 ?
-								"󰁾": EWW_BATTERY["BAT0"]["capacity"] < 70 ?
-								"󰁿": EWW_BATTERY["BAT0"]["capacity"] < 80 ?
-								"󰂀": EWW_BATTERY["BAT0"]["capacity"] < 90 ?
-								"󰂁": EWW_BATTERY["BAT0"]["capacity"] < 98 ?
-								"󰂂":"󰁹"
-							}"
-							:class "${EWW_BATTERY["BAT0"]["capacity"] < 40 ?
-								"red": EWW_BATTERY["BAT0"]["capacity"] < 80 ?
-								"yellow": "green"
-								} icon"
-						)
+
+;; ╭─ Battery ────────────────────────────────────────────────────────╮
+(defpoll batPercent :interval "60s" `bash ~/.config/eww/scripts/battery.sh`)
+(defvar batText "󰁹")
+(defvar batClass "critical")
+(defwidget battery []
+  (box :class "light-box" 
+    (eventbox       
+      (box :class {batClass}
+        (tooltip
+          (label :text {batPercent} :class "default")
+          (box :space-evenly false
+            (label :text {batText} :class "singleIcon" :width 25)
+            (label :text {batPercent} :class "bat-percent")
           )
         )
       )
@@ -393,86 +354,33 @@
 )
 ;; ╰──────────────────────────────────────────────────────────────────╯
 
-
-
-
-
 ;; ╭─ Time ───────────────────────────────────────────────────────────╮
-;; Variables
-;Current children
-(defvar time-toggle 0) 
-
-;Calendar vars
-(defvar calendar-toggle "off")
-;; Widget
-(defwidget time [monitor]
-  (box
-		:class "but-box"
-		:orientation "h" 
-		:space-evenly false
-    (eventbox
-			:class "${calendar-toggle == "off" ?
-				"button-off":"button-on"}"
-			:cursor "pointer"
-			;; Toggle calendar widget
-			:onclick "${calendar-toggle == "off" ?
-				"eww open calendar --screen ${monitor} && eww update calendar-toggle='on'"
-				:
-				"eww close calendar && eww update calendar-toggle='off'"
-				}"
-			;; Toggle between stack children
-			:onhover "${EWW_CMD} update time-toggle=${(time-toggle + 1) % 2}"
-			:onhoverlost "${EWW_CMD} update time-toggle=${(time-toggle + 1) % 2}"
-			(box :space-evenly false
-				(stack
-					:transition "slideup"
-					:selected {time-toggle}
-					(box
-						(label
-							:class "time-text"
-							:text {formattime(EWW_TIME, "%H:%M")}
-						)
-					)
-					(box
-						(label
-							:class "time-text"
-							:text {formattime(EWW_TIME, "%a, %B %d")}
-						)
-					)
-				)
-			)
-    )
+(defpoll time :interval "10s" "date +%H:%M")
+(defwidget time []
+  (box :orientation "h" :space-evenly false :class "time"
+    (eventbox :cursor "pointer" :class "barEvent"
+      (label :text {time} :class "time-text")
+    ) 
   )
 )
 ;; ╰──────────────────────────────────────────────────────────────────╯
 
 ;; ╭─ Power menu ─────────────────────────────────────────────────────╮
-(defvar PM1 "bash ~/.config/eww/scripts/powermenu.sh --PM1")
+(defvar PM1 "eww close bar leftBar && eww open powerMenu --screen 0 && eww update whichbar='bar leftBar' && bash ~/.config/eww/scripts/windows_number.sh")
 (defwidget PM1 [] 
-  (box 
-		:class "uBox" 
-    (eventbox 
-			:cursor "pointer" 
-			:class "barEvent"
+  (box :class "red-box" :width 35
+    (eventbox :cursor "pointer" :class "barEvent"
       :onclick {PM1} 
-      (label 
-				:text "󰐥" 
-				:class "red icon"
-			)
+      (label :text "⏻" :class "singleIcon")
     )
   )
 )
-(defvar PM2 "bash ~/.config/eww/scripts/powermenu.sh --PM2")
+(defvar PM2 "eww close bar2 leftBar2 && eww open powerMenu --screen 1 && eww update whichbar='bar2 leftBar2' && bash ~/.config/eww/scripts/windows_number.sh")
 (defwidget PM2 [] 
-  (box :class "uBox" 
-    (eventbox 
-			:cursor "pointer" 
-			:class "barEvent"
+  (box :class "red-box" :width 35
+    (eventbox :cursor "pointer" :class "barEvent"
       :onclick {PM2} 
-      (label 
-				:text "󰐥" 
-				:class "red icon"
-			)
+      (label :text "⏻" :class "singleIcon")
     )
   )
 )
@@ -483,98 +391,65 @@
 ;;          ╰─────────────────────────────────────────────────────────╯
 
 (defwidget leftAll []
-  (box
-		:space-evenly false
-    ;(song)
+  (box :space-evenly false
+    (song)
   )
 )
-(defwidget centerAll []
-	(box
-		:space-evenly false
-		;(time)
-	)
-)
 (defwidget rightAll []
-  (box
-		:space-evenly false
-    ;(temp)
-    ;(cpu)
-    ;(ram)
-    ;(disk)
+  (box :space-evenly false
+    (temp)
+    (cpu)
+    (ram)
+    (disk)
     (updates)
-    ;(network)
-    ;(wifi)
+    (network)
+    ;(wfi)
     ;(bluetooth)
     ;(updates)
     (barBrightness)
     (barVolume)
     ;(settingsButton1)
-    ;(indicators)
+    (indicators)
     (battery)
+    (time)
   )
 )
 
 ;; ╭─ Bar ────────────────────────────────────────────────────────────╮
 ;; Different widgets based on monitor
 (defwidget bar []
-  (centerbox
-		:class "default-top"
-		:orientation "h"
-		:space-evenly false
-    (box :orientation "h" 
-			:halign "start"
-			:space-evenly false
+  (centerbox :class "default-top" :orientation "h" :space-evenly false
+    (box :orientation "h" :halign "start" :space-evenly false
       (appLauncher)
       (hyprOverview)
       (workspaces)
-      ;(leftAll)
+      (leftAll)
 
     )
-    (box :orientation "h"
-			:halign "center"
-			:space-evenly false
-      (time :monitor 0)
-			(centerAll)
+    (box :orientation "h" :halign "center" :space-evenly false
+      ;(song)
     )
-    (box 
-			:orientation "h" 
-			:halign "end" 
-			:space-evenly false
+    (box :orientation "h" :halign "end" :space-evenly false
       (rightAll)
       (PM1)
-			(hSpacer)
     )
   )
 )
 
 (defwidget bar2 []
-  (centerbox 
-		:class "default-top shadow-bar" 
-		:orientation "h" 
-		:space-evenly false
-    (box 
-			:orientation "h" 
-			:halign "start" 
-			:space-evenly false 
+  (centerbox :class "default-top" :orientation "h" :space-evenly false
+    (box :orientation "h" :halign "start" :space-evenly false 
       (appLauncher)
       (hyprOverview)
       (workspaces2)
-      ;(leftAll)
+      (leftAll)
     )
-    (box 
-			:orientation "h" 
-			:halign "center" 
-			:space-evenly false 
-      (time :monitor 1)
-			(centerAll)
+    (box :orientation "h" :halign "center" :space-evenly false 
+      ;(song)
     )
-    (box 
-			:orientation "h" 
-			:halign "end" 
-			:space-evenly false
+    (box :orientation "h" :halign "end" :space-evenly false
       (rightAll)
       (PM2)
-			(hSpacer)
     )
   )
 )
@@ -587,10 +462,10 @@
 (defwindow bar 
   :monitor 0
   :geometry (geometry
-    :x "10px"
+    :x "0px"
     :y "0px"
     :width "100%"
-    :height "30px"
+    :height "35px"
     :anchor "top center")
   :stacking "fg"
   :exclusive true
@@ -602,10 +477,10 @@
 (defwindow bar2 
   :monitor 1
   :geometry (geometry
-    :x "10px"
+    :x "0px"
     :y "0px"
     :width "100%"
-    :height "30px"
+    :height "35px"
     :anchor "top center")
   :stacking "fg"
   :exclusive true

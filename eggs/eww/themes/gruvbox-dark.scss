@@ -1,0 +1,65 @@
+$bg:rgba(#1d2aaa,0.2);
+//$something: (brum)
+//ui_font = "{data.font.normal}" // {< replace_re(`".*"`, `"{data.font.normal}"`) >}
+$fg: #546E7A;
+$fg_alt: #94A7B0;
+//$bg: #FAFAFA;
+//$bg: rgba(29, 32, 33, 0.8);
+$bg_alt: #F2F2F2;
+$contrast: #E7E7E8;
+$hover: #D2D4D5;
+$bg-dark: $contrast;
+$bg-darker: #E7E7E8;
+$highlight: #D3E1E8;
+$disabled: #D2D4D5;
+$comments: #AABFC9;
+
+$red: #E53935;
+$orange: #F76D47;
+$yellow: #F6A434;
+$green: #91B859;
+$blue: #6182B8;
+$cyan: #39ADB5;
+$purple: #7C4DFF;
+
+//$accent: #00BCD4;
+$paleblue: #8796B0;
+$pink: #FF5370;
+$accent: #80CBC4;
+
+
+$bg_dim: $bg; 
+$bg0: $highlight;
+$bg1: #F4F0D9;
+$bg2: $bg_dim;
+$bg3: #E6E2CC;
+$bg4: $bg-dark;
+$bg5: $bg-darker;
+$bg_red: #FBE3DA;
+$bg_visual: #EAEDC8;
+$bg_yellow: #FAEDCD;
+$bg_green: #F0F1D2;
+$bg_blue: #E9F0E9;
+$aqua: #35A77C;
+
+$statusline1: #93B259;
+$statusline2: #708089;
+$statusline3: #E66878;
+$gray1: #A6B0A0;
+$gray2: #939F91;
+$gray3: #829181;
+
+$crust: #dce0e8;
+$base: #eff1f5;
+$surface1: #bcc0cc;
+$overlay1: #8c8fa1;
+$subtext1: #5c5f77;
+$text: #4c4f69;
+
+$sky: #04a5e5;
+$sapphire: #209fb5;
+$lavender: #7287fd;
+$black: #000000;
+
+$PMBackground: rgba(0, 0, 0, 0.6);
+//$PMBackground: #d20f39;

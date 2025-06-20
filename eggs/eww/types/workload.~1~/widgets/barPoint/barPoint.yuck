@@ -1,0 +1,20 @@
+(defwidget barPoint []
+  (box :class "default"
+    (label :text "A")
+  )
+)
+
+(defwindow barPoint 
+  :monitor 0
+  :geometry (geometry
+    :x "0px"
+    :y "0px"
+    :width "40px"
+    :height "40px"
+    :anchor "top left")
+  :stacking "overlay"
+  :exclusive false
+  :namespace "bar"
+  (barPoint)
+)
+
