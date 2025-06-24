@@ -1,3 +1,178 @@
 configuration {
 	show-icons: true;
 }
+
+* {
+	font: "FiraCode Nerd Font propo 12"; // {< replace_quoted(data.font.normal) >}
+
+	foreground: #ebdbb2; // {< replace_color(data.colors.foreground) >}
+	bg: #1d2021; // {< replace_color(data.colors.background) >}
+	bg3: #665c54; // {< replace_color(data.colors.bg3) >}
+	bgTrans80: #1d2021B3; // {< replace_color(data.colors.backgroundTrans80) >}
+	blackDarkTrans40: #3c383666; // {< replace_color(data.colors.blackDarkTrans40) >}
+	accentTrans10: #d65d0e1A; // {< replace_color(data.colors.accentDarkTrans) >}
+	accentLight: #fe8019; // {< replace_color(data.colors.accentLight) >}
+	blueLight: #83a598; // {< replace_color(data.colors.blueLight) >}
+	magentaLight: #d3869b; // {< replace_color(data.colors.magentaLight) >}
+	background: transparent;
+}
+
+/*===== Main window =====*/
+window {
+  location: center;
+  anchor: center;
+  fullscreen: false;
+
+  height: 800px;
+  width: 1400px;
+
+  //padding: 1em;
+  //border-radius: 20px;
+  border: 3px;
+  border-color: @bg3;
+
+  background-color: @bgTrans80;
+}
+
+
+
+/*===== Main window =====*/
+mainbox {
+  enabled: true;
+
+  spacing: 2em;
+  orientation: vertical;
+
+	background-color: transparent;
+
+  children: [ "inputbar", "content" ];
+}
+
+/*===== Inputbar =====*/
+inputbar{
+  enabled: true;
+
+  spacing: 1em;
+  background-color: @blackDarkTrans40;
+  padding: 0.4em;
+
+  text-color: @foreground;
+
+  children: [ "prompt", "entry" ];
+}
+
+prompt {
+	background-color: transparent;
+  enabled: true;
+  placeholder: " ";
+	text-color: @magentaLight;
+  font: @font;
+  padding: 0em 0em 0em 0.4em;
+}
+
+entry {
+  text-color: @blueLight;
+  font: @font;
+  enabled: true;
+  cursor: text;
+  placeholder: "Search";
+  placeholder-color: inherit;
+	background-color: transparent;
+}
+
+/*===== Content =====*/
+content {
+	background-color: transparent;
+  orientation: horizontal;
+  spacing: 1em;
+  children: [ "listview", "selected-entry"];
+}
+
+selected-entry {
+  background-color: @blackDarkTrans40;
+  //border-radius: 20px;
+
+  children: [ "icon-current-entry", "textbox-current-entry" ];
+}
+icon-current-entry {
+	background-color: transparent;
+  expand: true;
+  size: 58%;
+}
+
+textbox-current-entry {
+  font: @font;
+  horizontal-align: 0.5;
+  vertical-align: 1;
+  text-color: @foreground;
+  padding: 20px;
+  background-color: transparent;
+}
+
+listview {
+  enabled: true;
+  fixed-columns: true;
+  fixed-lines: true;
+  flow: horizontal;
+  columns: 1;
+  //lines: 7;
+  //spacing: 1em;
+	background-color: transparent;
+	scrollbar: true;
+}
+
+scrollbar {
+  enabled: true;
+
+  handle-width: 7px;
+
+  border-radius: 5px;
+
+  handle-color: @accentLight;
+  background-color: @bgTrans80;
+}
+
+element {
+  orientation: horizontal;
+  //padding: 0.3em;
+  //border-radius: 20px;
+	background-color: transparent;
+
+  children: [ "element-icon", "element-text" ];
+}
+
+element-icon {
+  size: calc(((100% - 7em) / 10 ));
+	background-color: transparent;
+	border: 3px;
+	padding: 3px;
+  //horizontal-align: 0.5;
+  //vertical-align: 0.5;
+}
+
+element-text {
+  padding: 0.2em;
+  background-color: transparent;
+  text-color: @foreground;
+}
+element-text selected.normal {
+  background-color: @base;
+  text-color: @text-color;
+}
+
+element normal.normal {
+    background-color:            @blackDarkTrans40;
+    text-color:                  @foreground;
+}
+element alternate.normal {
+  background-color: transparent;
+}
+element selected.normal {
+    border:                      3px 3px 3px 3px;
+    border-color:                transparent;
+    background-color:            @accentLight;
+    text-color:                  @bg;
+}
+
+
+
