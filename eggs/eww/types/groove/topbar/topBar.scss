@@ -38,6 +38,9 @@
     animation-duration: 0.5s;
   }
 }
+.active {
+  background-color: $active;
+}
 
 
 // Colors
@@ -83,6 +86,15 @@
 .workspace-entry {
   margin: 0px 5px;
 }
+.ws-hover {
+    background-color: transparent;
+  &:hover {
+    background-color: $hover;
+    animation-name: button-hover-anim;
+    animation-duration: 0.5s;
+  }
+}
+
 
 // Brightness
 

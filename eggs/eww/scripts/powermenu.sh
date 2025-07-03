@@ -2,16 +2,36 @@
 
 case "$1" in
 	--0) 
-	#eww close bar && 
-	#eww open powerMenu --screen 0 &&
-	#eww update whichbar='bar' &&
-	#bash ~/.config/eww/scripts/windows_number.sh
+	eww open powermenu --screen 0
 	;;
 	--1) 
-	#eww close bar2 && 
-	#eww open powerMenu --screen 1 && 
-	#eww update whichbar='bar2' && 
-	#bash ~/.config/eww/scripts/windows_number.sh
+	eww open powermenu --screen 1
+	;;
+	--Sleep)
+		eww close powermenu
+		eww update pwrState=false && eww update pwrToggle=false
+		hyprctl notify 3 5000 'rgb(282828)' 'fontsize:13 sleep'
+	;;
+	--Reboot)
+		eww close powermenu
+		eww update pwrState=false && eww update pwrToggle=false
+		reboot
+	;;
+	--Lock)
+		eww close powermenu
+		eww update pwrState=false && eww update pwrToggle=false
+		hyprctl notify 3 5000 'rgb(282828)' 'fontsize:13 Lock'
+	;;
+--LogOut)
+		eww close powermenu
+		eww update pwrState=false && eww update pwrToggle=false
+
+		hyprctl notify 3 5000 'rgb(282828)' 'fontsize:13 Logout'
+	;;
+--Shutdown)
+		eww close powermenu
+		eww update pwrState=false && eww update pwrToggle=false
+		shutdown now
 	;;
 esac
 

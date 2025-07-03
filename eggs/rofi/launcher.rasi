@@ -16,7 +16,7 @@ configuration {
 	font: "FiraCode Nerd Font propo 12"; // {< replace_quoted(data.font.normal) >}
 
 	foreground: #ebdbb2; // {< replace_color(data.colors.foreground) >}
-	bg: #1d2021; // {< replace_color(data.colors.background) >}
+	bg: #282828; // {< replace_color(data.colors.background) >}
 	bg3: #665c54; // {< replace_color(data.colors.bg3) >}
 	bgTrans80: #1d2021B3; // {< replace_color(data.colors.backgroundTrans80) >}
 	blackDarkTrans40: #3c383666; // {< replace_color(data.colors.blackDarkTrans40) >}

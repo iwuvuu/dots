@@ -24,12 +24,17 @@ export let eggs = #{
 		templates: ["**/*.scss"],
 		enabled: true,
 	},
+	ags: #{
+		targets: "~/.config/ags",
+		templates: ["*.ts","*.scss","widget/*.tsx"],
+		enabled: true,
+	}
 };
 
 const themes = #{
 	gruvbox: #{
 		bg0: "#1d2021",
-		background: "#1d2021",
+		background: "#282828",
 		backgroundAlpha: 0.8,
 		bg3: "#665c54",
     foreground: "#ebdbb2",
@@ -55,6 +60,7 @@ const themes = #{
 		backgroundTrans80: "#1d2021B3",
 		accentDarkTrans: "#d65d0e1A",
 		blackDarkTrans40: "#3c383666",
+		blackLightTrans40: "#50494566",
 
   },
 	mytheme: #{

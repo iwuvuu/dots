@@ -40,8 +40,8 @@
       (for ws in getWS
         (eventbox 
 					:onclick "hyprctl dispatch workspace ${ws.id}" 
-					:cursor "pointer" 
-					:class "hover"
+					:cursor "pointer"
+					:class "ws-hover"
           (box 
 						:class "workspace-entry ${ws.windows > 0 ? "occupied" : "empty"}"         
 						(label 
@@ -60,7 +60,7 @@
     (box :space-evenly true       
 			(label :text "${getWS2}${currWS}" :visible false)
       (for ws in getWS2
-        (eventbox :onclick "hyprctl dispatch workspace ${ws.id}" :cursor "pointer" :class "hover"
+        (eventbox :onclick "hyprctl dispatch workspace ${ws.id}" :cursor "pointer" :class "ws-hover"
           (box :class "workspace-entry ${ws.windows > 0 ? "occupied" : "empty"}"
             (label :text "${ws.id == currWS ? "" : ws.windows > 0 ? "" : ""}" :class "workspace-entry ${ws.id == currWS ? "current" : ""}" )
             )
@@ -132,7 +132,10 @@
 			:cursor "pointer"
 			:class "hover"
 			(box
-				(label :text "")
+				(button
+					:onclick "kitty &"
+					(label :text "")
+				)
 			)
 		)
 	)
@@ -271,16 +274,22 @@
 
 
 ;; Powermenu
+(defvar pwrState false)
+(defvar pwrOpen "bash ~/.config/eww/scripts/powermenu.sh")
 (defwidget powermenu [monitor] 
   (box :class "singleIcon"
 		:width 35
     (eventbox 
 			:cursor "pointer" 
-			:class "hover"
-      :onclick "bash ~/.config/eww/scripts/powermenu.sh --${monitor}"
-      (label 
-				:text "" 
-				:class "red"
+			:class "${pwrState == false ? 'hover' : 'active'}"
+			(button
+				:onclick "${pwrState == false ? 'bash ~/.config/eww/scripts/powermenu.sh --${monitor} && eww update pwrState=true' : 
+					'eww close powermenu && eww update pwrState=false && eww update pwrToggle=false'
+				}"
+				(label 
+					:text "⏻" 
+					:class "red"
+				)
 			)
     )
   )
@@ -395,7 +404,7 @@
     :width "100%"
     :height "30px"
     :anchor "top center")
-  :stacking "fg"
+  :stacking "overlay"
   :exclusive true
   :namespace "overlay"
   (bar)
@@ -409,7 +418,7 @@
     :width "100%"
     :height "30px"
     :anchor "top center")
-  :stacking "fg"
+  :stacking "overlay"
   :exclusive true
   :namespace "overlay"
   (bar2)
@@ -422,7 +431,7 @@
     :width "100%"
     :height "38px"
     :anchor "top center")
-  :stacking "bottom"
+  :stacking "fg"
   :exclusive false
   :namespace "overlay"
   (shadowBar2)
@@ -435,7 +444,7 @@
     :width "100%"
     :height "38px"
     :anchor "top center")
-  :stacking "bottom"
+  :stacking "fg"
   :exclusive false
   :namespace "overlay"
   (shadowBar)

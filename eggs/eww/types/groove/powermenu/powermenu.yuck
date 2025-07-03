@@ -1,0 +1,141 @@
+;; ── VARIABLEs ───────────────────────────────────────────────────────
+;; Script executing shell commands for selected options
+(defvar pwrScript "~/.config/eww/scripts/powermenu.sh")
+;; Selected option
+(defvar pwrSelected "none")
+;; if is the revealer shown
+(defvar pwrToggle false)
+
+;; ── WIDGETs ─────────────────────────────────────────────────────────
+
+;; Power mode selection
+(defwidget pwrContent []
+	(box 
+		:space-evenly true
+		(box :class "margin-5 singleIcon"
+			:tooltip "Sleep"
+			(eventbox :class "hover round-corners"
+				(button
+					:onclick "eww update pwrSelected='Sleep' && eww update pwrToggle=true"
+					(label :text "")
+				)
+			)
+		)
+		(box :class "margin-5 singleIcon"
+			:tooltip "Reboot"
+			(eventbox :class "hover round-corners"
+				(button
+					:onclick "eww update pwrSelected='Reboot' && eww update pwrToggle=true"
+					(label :text "")
+				)
+			)
+		)
+		(box :class "margin-5 singleIcon"
+			:tooltip "Lock"
+			(eventbox :class "hover round-corners"
+				(button
+					:onclick "eww update pwrSelected='Lock' && eww update pwrToggle=true"
+					(label :text "")
+				)
+			)
+		)
+		(box :class "margin-5 singleIcon"
+			:tooltip "LogOut"
+			(eventbox :class "hover round-corners"
+				(button
+					:onclick "eww update pwrSelected='LogOut' && eww update pwrToggle=true"
+					(label :text "󰍃")
+				)
+			)
+		)
+		(box :class "red margin-5 singleIcon"
+			:width 50
+			:height 50
+			:tooltip "Shutdown"
+			(eventbox :class "hover round-corners"
+				(button
+					:onclick "eww update pwrSelected='Shutdown' && eww update pwrToggle=true"
+					(label :text "⏻")
+				)
+			)
+		)
+	)
+)
+
+
+;; Confirmation revealer
+(defwidget pwrConfirm []
+	(revealer
+		:visible pwrToggle
+		:reveal pwrToggle
+		:transition "crossfade"
+		:duration "2000ms"
+		(box
+			:orientation "v"
+			:space-evenly false
+			(label :class "margin-bottom-10" :text "${pwrSelected}? Like fr?")
+			(box 
+				:orientation "h"
+				:space-evenly false
+				:halign "center"
+				(box :class "bg-red fg-dark margin-5 round-corners"
+					:halign "center"
+					:width 70
+					:height 40
+					(eventbox :class "hover round-corners"
+						(button
+							:onclick "${pwrScript} --${pwrSelected}"
+							(label :text "Yep")
+						)
+					)
+				)
+				(box :class "bg-green fg-dark margin-5 round-corners"
+					:halign "center"
+					:width 70
+					(eventbox :class "hover round-corners"
+						(button
+							:onclick "eww close powermenu && eww update pwrState=false && eww update pwrToggle=false"
+							(label :text "Nah")
+						)
+					)
+				)
+			)
+		)
+	)
+)
+
+
+;; Whole widget setup
+(defwidget powermenuContent []
+	;; transparent widget box
+	(box 
+		:class "bg-transparent widgetText margin-bottom-8"
+		:space-evenly false
+		:orientation "h"
+		;; inverse corner box
+		(box
+			:hexpand true
+			:class "inverse-corner-top-left-10"
+		)
+		;; content of the widget
+		(box :class "barBg border-radius-bottom-left-10 shadow-bottom"
+			:space-evenly false
+			:orientation "v"
+			(pwrContent) ;; Option selection
+			(pwrConfirm) ;; Confirmation
+		)
+	)
+)
+
+;; ── WINDOWs ─────────────────────────────────────────────────────────
+
+(defwindow powermenu
+	:geometry (geometry
+		:width "350px"
+		:anchor "top right"
+	)
+	:stacking "overlay"
+	:exclusive false
+	:namespace "overlay"
+	(powermenuContent)
+)

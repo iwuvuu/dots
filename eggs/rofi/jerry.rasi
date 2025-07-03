@@ -1,20 +1,21 @@
 configuration {
 	show-icons: true;
+  display-drun: "";
+  drun-display-format: "{name}";
 }
 
 * {
 	font: "FiraCode Nerd Font propo 12"; // {< replace_quoted(data.font.normal) >}
 
 	foreground: #ebdbb2; // {< replace_color(data.colors.foreground) >}
-	bg: #1d2021; // {< replace_color(data.colors.background) >}
-	bg3: #665c54; // {< replace_color(data.colors.bg3) >}
-	bgTrans80: #1d2021B3; // {< replace_color(data.colors.backgroundTrans80) >}
-	blackDarkTrans40: #3c383666; // {< replace_color(data.colors.blackDarkTrans40) >}
+	background: #1d2021E6; // {< replace_color(data.colors.backgroundTrans90) >}
+	bgText: #282828; // {< replace_color(data.colors.background) >}
+	border: #665c54; // {< replace_color(data.colors.bg3) >}
+	blackDarkTrans40: #50494566; // {< replace_color(data.colors.blackLightTrans40) >}
 	accentTrans10: #d65d0e1A; // {< replace_color(data.colors.accentDarkTrans) >}
 	accentLight: #fe8019; // {< replace_color(data.colors.accentLight) >}
 	blueLight: #83a598; // {< replace_color(data.colors.blueLight) >}
 	magentaLight: #d3869b; // {< replace_color(data.colors.magentaLight) >}
-	background: transparent;
 }
 
 /*===== Main window =====*/
@@ -29,9 +30,9 @@ window {
   //padding: 1em;
   //border-radius: 20px;
   border: 3px;
-  border-color: @bg3;
+  border-color: @border;
 
-  background-color: @bgTrans80;
+  background-color: @background;
 }
 
 
@@ -129,7 +130,7 @@ scrollbar {
   border-radius: 5px;
 
   handle-color: @accentLight;
-  background-color: @bgTrans80;
+  background-color: @background;
 }
 
 element {
@@ -171,7 +172,7 @@ element selected.normal {
     border:                      3px 3px 3px 3px;
     border-color:                transparent;
     background-color:            @accentLight;
-    text-color:                  @bg;
+    text-color:                  @bgText;
 }
 
 
