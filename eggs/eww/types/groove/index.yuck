@@ -1,3 +1,4 @@
 (include "types/groove/topbar/topBar.yuck")
 (include "types/groove/powermenu/powermenu.yuck")
 (include "types/groove/applauncher/appLauncher.yuck")
+(include "types/groove/mediaplayer/mediaPlayer.yuck")

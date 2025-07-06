@@ -1,0 +1,98 @@
+(deflisten songStats :initial "[]" "astal-mpris monitor -r")
+
+(defwidget mediaContent []
+	(box
+		:space-evenly false
+		(box
+			:orientation "h"
+			:space-evenly false
+			(box
+				:halign "start"
+			(for n in songStats
+				(overlay
+					(image
+						:class "round-corners bg-red margin-10"
+						:path "${n["cover_art"]}"
+						:image-width 170
+					)
+					(box
+						:class "bg-transparent border-10 margin-10 round-corners"
+					)
+				)
+			)
+			)
+			(for n in songStats
+				(box
+					:orientation "v"
+					(label 
+						:text "${n["metadata"]["xesam:title"]}"
+					)
+					(label :wrap true :text "${n["metadata"]["xesam:album"]} - ${n["metadata"]["xesam:artist"][0]}")
+					(box
+						:class "uni-progress"
+						:space-evenly false
+						(box
+							(label :text "${replace(n.position / 60, "\\..*", "")}:${round(n.position % 60, 0) < 10 ? '0${round(n.position % 60, 0)}' : '${round(n.position % 60, 0)}'}")
+						)
+						(progress
+							:orientation "h"
+							:value {(n.position * 100) / (n["metadata"]["mpris:length"] / 1000000)}
+						)
+						(box
+							(label :text "${replace(n["metadata"]["mpris:length"] / 60000000, "\\..*", "")}:${replace(n["metadata"]["mpris:length"] % 60000000 / 1000000, "\\..*", "") < 10 ? '0${replace(n["metadata"]["mpris:length"] % 60000000 / 1000000, "\\..*", "")}' : '${replace(n["metadata"]["mpris:length"] % 60000000 / 1000000, "\\..*", "")}'}")
+						)
+					)
+					(box
+						(eventbox						
+							(label :text "${n.shuffle_status}")
+						)
+						(eventbox)
+						(eventbox)
+						(eventbox)
+						(eventbox)
+						(eventbox)
+						(eventbox
+							(label :text "${n.loop_status}")
+						)
+
+					)
+					(label :text "${n.identity}")
+				)
+			)
+		)
+	)
+)
+
+(defwidget mediaPlayer []
+	(box
+		:class "bg-transparent widgetText margin-bottom-8"
+		:space-evenly false
+		;; inverse corner box
+		(box
+			:hexpand true
+			:class "inverse-corner-top-left-10"
+		)
+		(box
+			:class "bg round-corners-bottom shadow-bottom"
+			:width 500
+			(mediaContent)
+		)
+		;; inverse corner box
+		(box
+			:hexpand true
+			:class "inverse-corner-top-right-10"
+		)
+	)
+)
+(defwindow mediaPlayer
+	:geometry (geometry
+		:x "200px"
+		:width "540px"
+		:height "200px"
+		:anchor "top left"
+	)
+	:stacking "fg"
+	:exclusive false
+	:namespace "popup"
+	(mediaPlayer)
+)

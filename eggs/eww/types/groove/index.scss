@@ -50,6 +50,9 @@
 .border-radius-bottom-right-10 {
   border-radius: 0 0 10px 0;
 }
+.round-corners-bottom {
+  border-radius: 0 0 10px 10px;
+}
 
 // Inverse rounded corners
 .inverse-corner-top-left-10 {
@@ -70,6 +73,9 @@
 .margin-5 {
   margin: 5px;
 }
+.margin-10 {
+  margin: 10px;
+}
 .margin-bottom5 {
   margin-bottom: 5px;
 }
@@ -82,6 +88,10 @@
 .margin-right-10 {
   margin-right: 10px;
 }
+.margin-left-10 {
+  margin-left: 10px;
+}
+
 
 
 //PADDING
@@ -110,4 +120,39 @@
   &:hover {
     color: $hover;
   }
+}
+
+// BORDER
+
+.border-10 {
+  //border: 10px solid red;
+  border: 5px solid $bg; // inner border
+  border-radius: 10px;
+  box-shadow: 0 0 0 5px $bg; // outer border
+}
+
+
+.uni-scale scale trough highlight {
+  background-color: $blue;
+  border-radius: 50px;
+}
+.uni-scale scale trough {
+  background-color: $bg;
+  border-radius: 50px;
+  min-height: 10px;
+  min-width: 400px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+.uni-progress progressbar progress {
+  background-color: $blue;
+  border-radius: 50px;
+}
+.uni-progress progressbar trough {
+  background-color: $bg;
+  border-radius: 50px;
+  min-height: 10px;
+  min-width: 200px;
+  margin-left: 5px;
+  margin-right: 5px;
 }
