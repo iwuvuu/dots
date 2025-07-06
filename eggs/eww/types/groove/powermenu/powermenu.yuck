@@ -118,7 +118,7 @@
 			:class "inverse-corner-top-left-10"
 		)
 		;; content of the widget
-		(box :class "barBg border-radius-bottom-left-10 shadow-bottom"
+		(box :class "bg border-radius-bottom-left-10 shadow-bottom"
 			:space-evenly false
 			:orientation "v"
 			(pwrContent) ;; Option selection
@@ -134,8 +134,8 @@
 		:width "350px"
 		:anchor "top right"
 	)
-	:stacking "overlay"
+	:stacking "fg"
 	:exclusive false
-	:namespace "overlay"
+	:namespace "popup"
 	(powermenuContent)
 )

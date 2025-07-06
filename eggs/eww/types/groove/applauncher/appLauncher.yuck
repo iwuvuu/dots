@@ -1,0 +1,136 @@
+; Added icons:
+; io.mrarm.mcpelauncher-ui-qt <- minecraft.svg
+; display (arandr) <- cs-display.svg
+; auto-cpufreq <- cpu-freq.svg
+; rofi <- cs-windows.svg
+; network-wired <- (Avahi) <- cs-network.svg
+; steam_icon_291550 (brawlhalla) <- custom 
+
+(defvar showSearch false)
+(defvar showAll true)
+
+(defvar searchTerm "[]")
+(deflisten currentApps :initial "[]" "bash ~/.config/eww/scripts/search-apps.sh")
+(defvar iconTheme "Gruvbox-Plus-Dark")
+(deflisten allApps :initial "[]" "bash ~/.config/eww/scripts/get-apps.sh")
+(defwidget appContent []
+	(box
+		:class "margin-right-10"
+		(eventbox
+			(box
+				:space-evenly true
+				:vexpand true
+				:height 500
+				:class "margin-bottom-10"
+				(scroll
+					:vscroll true
+					(box
+						(box
+							:orientation "v"
+							:visible {showSearch}
+							:space-evenly false
+							(for s in currentApps
+								(eventbox
+									:class "hover-no-anim"
+									:onclick "bash ~/.config/eww/scripts/launch-app.sh '${s.executable}' '${s.name}' && eww close appLauncher && eww update searchTerm=''"
+									(box
+										:orientation "h"
+										:space-evenly false
+										(image
+											;;:icon "${i.icon_name}"
+											:path "/home/iwuvu/.local/share/icons/${iconTheme}/apps/scalable/${s.icon_name}.svg"
+											:image-height 32
+
+											:class "margin-right-10"
+										)
+										(label :text "${s.name}")
+									)
+								)
+							)
+						)
+						(box
+							:orientation "v"
+							:space-evenly true
+							:visible {showAll}
+							(for i in allApps
+								(eventbox
+									:class "hover"
+									:onclick "bash ~/.config/eww/scripts/launch-app.sh '${i.executable}' '${i.name}' && eww close appLauncher && eww update searchTerm=''"
+									(box
+										:orientation "h"
+										:space-evenly false
+										(image
+											;;:icon "${i.icon_name}"
+											:path "/home/iwuvu/.local/share/icons/${iconTheme}/apps/scalable/${i.icon_name}.svg"
+											:image-height 32
+											:class "margin-right-10"
+										)
+										(label :text "${i.name}")
+									)
+								)
+							)	
+						)
+					)
+				)
+			)
+		)
+	)
+)
+
+
+(defwidget appLauncher-popup []
+	(box 
+		:class "bg-transparent widgetText margin-bottom-8"
+		:space-evenly false
+		:orientation "h"
+
+		;; content of the widget
+		(box :class "bg border-radius-bottom-right-10 shadow-bottom padding-top-10 padding-left-10"
+			:space-evenly false
+			:orientation "v"
+			:width 350
+			(box 
+				:orientation "h"
+				(box
+					:class "margin-bottom5"
+					:space-evenly false
+					(label :text "Search: ")
+					(input
+						:value ""
+						:onchange "eww update searchTerm={}"
+						:onaccept "astal-apps -l {} && eww close appLauncher && eww update searchTerm=''"
+						:hexpand true
+					)
+					(button
+						:class "red hover-icon margin-right-10"
+						:onclick "eww close appLauncher"
+						:halign "end"
+						(label :text "")
+					)
+				)
+			)
+
+			(appContent)
+		)
+		;; inverse corner box
+		(box
+			:hexpand true
+			:class "inverse-corner-top-right-10"
+		)
+	)
+)
+
+;; ── WINDOWs ─────────────────────────────────────────────────────────
+
+(defwindow appLauncher
+	:geometry (geometry
+		:width "370px"
+		:height "200px"
+		:anchor "top left"
+	)
+	:stacking "fg"
+	:exclusive false
+	:namespace "popup"
+	:focusable true
+	(appLauncher-popup)
+)

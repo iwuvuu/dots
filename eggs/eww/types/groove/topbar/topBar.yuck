@@ -3,10 +3,11 @@
 ;; App launcher
 (defvar rofi "eww update appToggle='on' && rofi -show drun -theme ~/.config/rofi/launcher.rasi &")
 (defvar appToggle "off")
-(defwidget appLauncher [] 
+(defwidget appLauncher [monitor] 
   (box :width 35
     (eventbox :cursor "pointer" :class "hover"
-      :onclick "${appToggle == "off" ? rofi : "eww update appToggle='off' && killall rofi"}" 
+			;:onclick "${appToggle == "off" ? rofi : "eww update appToggle='off' && killall rofi"}"
+			:onclick "eww open appLauncher --screen ${monitor}"
       (label :text "󰣇" :class "singleIcon blue")
     )
   )
@@ -311,7 +312,9 @@
 			:halign "start"
 			:space-evenly false
 			(hSpacer)
-			(appLauncher)
+			(appLauncher
+				:monitor 0
+			)
 			(hyprOverview)
 			(hSpacer)
 			(hSpacer)
@@ -355,7 +358,9 @@
 			:halign "start"
 			:space-evenly false
 			(hSpacer)
-			(appLauncher)
+			(appLauncher
+				:monitor 1
+			)
 			(hyprOverview)
 			(hSpacer)
 			(hSpacer)
