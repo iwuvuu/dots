@@ -74,9 +74,12 @@
 ;; Music widget
 (deflisten songTitle :initial "Nothing" "playerctl --follow metadata --format {{title}}")
 (deflisten songArtist :initial "Noone" "playerctl --follow metadata --format {{artist}}")
-(defwidget song []
+(defwidget song [monitor]
   (box
     (eventbox
+			:class "hover"
+			:cursor "pointer"
+			:onclick "eww open mediaPlayer --screen ${monitor} --toggle"
       (box 
 				:class "widgetText"
 				:space-evenly false
@@ -319,7 +322,9 @@
 			(hSpacer)
 			(hSpacer)
 			(workspaces)
-			(song)
+			(song
+				:monitor 0
+			)
 		)
 		(box ;center widgets
 			:halign "center"
@@ -365,7 +370,9 @@
 			(hSpacer)
 			(hSpacer)
 			(workspaces2)
-			(song)
+			(song
+				:monitor 1
+			)
 		)
 		(box ;center widgets
 			:halign "center"

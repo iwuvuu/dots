@@ -18,6 +18,20 @@
   //margin: 10px 10px 8px 10px;
 }
 
+// FONTS
+.font-size-12 {
+  font-size: 12;
+}
+.font-size-22 {
+  font-size: 22;
+}
+.font-size-30 {
+  font-size: 30;
+}
+.font-weight-normal {
+  font-weight: normal;
+}
+
 // BACKGROUNDS
 .bg {
   background-color: $bg;
@@ -39,6 +53,9 @@
 .fg-dark {
   color: $bg;
 }
+.fg-white-dark {
+  color: $whiteDark;
+}
 
 // ROUNDED CORNERS
 .round-corners {
@@ -56,12 +73,12 @@
 
 // Inverse rounded corners
 .inverse-corner-top-left-10 {
-  background-color: transparent;
+  //background-color: transparent;
   border-radius: 0 10px 0 0;
   box-shadow: $bg 10px -10px;
 }
 .inverse-corner-top-right-10 {
-  background-color: transparent;
+  //background-color: transparent;
   border-radius: 10px 0 0 0;
   box-shadow: $bg -10px -10px;
 }
@@ -75,6 +92,9 @@
 }
 .margin-10 {
   margin: 10px;
+}
+.margin-top-10 {
+  margin-top: 10px;
 }
 .margin-bottom5 {
   margin-bottom: 5px;
@@ -147,12 +167,13 @@
 .uni-progress progressbar progress {
   background-color: $blue;
   border-radius: 50px;
+  min-height: 12px;
 }
 .uni-progress progressbar trough {
-  background-color: $bg;
+  background-color: $blackDark;
   border-radius: 50px;
-  min-height: 10px;
-  min-width: 200px;
+  min-height: 12px;
+  min-width: 280px;
   margin-left: 5px;
   margin-right: 5px;
 }

@@ -1,68 +1,142 @@
 (deflisten songStats :initial "[]" "astal-mpris monitor -r")
+(defpoll playPause :interval "1s" :initial "Playing" "playerctl status")
 
+
+;; ── WIDGET CONTENT ──────────────────────────────────────────────────
 (defwidget mediaContent []
 	(box
 		:space-evenly false
 		(box
-			:orientation "h"
+			:orientation "v"
 			:space-evenly false
-			(box
-				:halign "start"
+			(label :visible false :text "${playPause}") ;; to start polling - for loop does not poll automatically
 			(for n in songStats
-				(overlay
-					(image
-						:class "round-corners bg-red margin-10"
-						:path "${n["cover_art"]}"
-						:image-width 170
+				(box 
+					:orientation "h"
+					:space-evenly false
+					(box :halign "start"
+						(overlay
+							(image
+								:class "round-corners bg-red margin-10"
+								:path "${n["cover_art"]}"
+								:image-width 170
+							)
+							(box
+								:class "bg-transparent border-10 margin-10 round-corners"
+							)
+						)
 					)
 					(box
-						:class "bg-transparent border-10 margin-10 round-corners"
-					)
-				)
-			)
-			)
-			(for n in songStats
-				(box
-					:orientation "v"
-					(label 
-						:text "${n["metadata"]["xesam:title"]}"
-					)
-					(label :wrap true :text "${n["metadata"]["xesam:album"]} - ${n["metadata"]["xesam:artist"][0]}")
-					(box
-						:class "uni-progress"
+						:class "margin-top-10 margin-right-10 margin-bottom-10"
+						:orientation "v"
 						:space-evenly false
+						:width 410
 						(box
-							(label :text "${replace(n.position / 60, "\\..*", "")}:${round(n.position % 60, 0) < 10 ? '0${round(n.position % 60, 0)}' : '${round(n.position % 60, 0)}'}")
-						)
-						(progress
-							:orientation "h"
-							:value {(n.position * 100) / (n["metadata"]["mpris:length"] / 1000000)}
-						)
-						(box
-							(label :text "${replace(n["metadata"]["mpris:length"] / 60000000, "\\..*", "")}:${replace(n["metadata"]["mpris:length"] % 60000000 / 1000000, "\\..*", "") < 10 ? '0${replace(n["metadata"]["mpris:length"] % 60000000 / 1000000, "\\..*", "")}' : '${replace(n["metadata"]["mpris:length"] % 60000000 / 1000000, "\\..*", "")}'}")
+							:orientation "v"
+							:space-evenly false
+							(box
+								:space-evenly false
+								(label :limit-width 30 :class "font-size-22" :hexpand true :text "${n["metadata"]["xesam:title"]}" )
+								(label :tooltip "${n.identity}" :halign "end" :text "${n.identity == "Spotify" ? "" : "󰎆"}")
+							)
+							(box
+								(label :class "font-size-12 fg-white-dark font-weight-normal margin-right-10" :text "${n["metadata"]["xesam:album"]}")
+							)
+							(box
+								(label :class "margin-right-10" :text "${n["metadata"]["xesam:artist"][0]}")
+							)
+							(box :height 35)
+							(box
+								:valign "end"
+								:space-evenly false
+								(box :width 20)
+								(eventbox
+									:class "font-size-22 margin-10 hover-no-anim round-corners"
+									:width 40
+									:cursor "pointer"
+									:onclick "astal-mpris shuffle Toggle"
+									(label :class "${n.shuffle_status == "On" ? "green" : "red"}" :text "")
+								)
+								(box :hexpand true )
+								(eventbox
+									:class "font-size-22 margin-10 hover-no-anim round-corners"
+									:width 40
+									:cursor "pointer"
+									:onclick "astal-mpris previous"
+									(label :text "")
+								)
+								(box
+									:space-evenly false
+									(eventbox
+										:class "font-size-22 margin-10 hover-no-anim round-corners"
+										:width 40
+										:cursor "pointer"
+										:onclick "astal-mpris position 5-"
+										(label :text "")
+									)
+									(box
+										(eventbox
+											:class "font-size-30 margin-10 hover-no-anim round-corners"
+											:halign "center"
+											:cursor "pointer"
+											:onclick "astal-mpris -p ${n.entry} play-pause"
+											:width 40
+											(label :text "${playPause == "Playing" ? "" : ""}")
+										)
+									)
+									(eventbox
+										:class "font-size-22 margin-10 hover-no-anim round-corners"
+										:width 40
+										:cursor "pointer"
+										:onclick "astal-mpris position 5+"
+										(label :text "")
+									)
+								)
+								(eventbox
+									:class "font-size-22 margin-10 hover-no-anim round-corners"
+									:width 40
+									:cursor "pointer"
+									:onclick "astal-mpris next"
+									(label :text "")
+								)
+								(box :hexpand true)
+								(eventbox
+									:class "font-size-22 margin-10 hover-no-anim round-corners"
+									:width 40
+									:cursor "pointer"
+									:onclick "${n.loop_status == "Track" ? "astal-mpris loop Playlist" : n.loop_status == "Playlist" ? "astal-mpris loop None" : "astal-mpris loop Track"}"
+									(label :class "${n.loop_status == "None" ? "red" : "green"}" :text "${n.loop_status == "Track" ? "󰑘" : n.loop_status == "Playlist" ? "󰑖" : "󰑗"}")
+								)
+								(box :width 20)
+							)
+							(box
+								:class "uni-progress"
+								:space-evenly false
+								(box :hexpand true)
+								(box
+									(label :text "${replace(n.position / 60, "\\..*", "")}:${round(n.position % 60, 0) < 10 ? '0${round(n.position % 60, 0)}' : '${round(n.position % 60, 0)}'}")
+								)
+								(progress
+									:orientation "h"
+									:value {(n.position * 100) / (n["metadata"]["mpris:length"] / 1000000)}
+								)
+								(box
+									(label 
+										:text "${replace(n["metadata"]["mpris:length"] / 60000000, "\\..*", "")}:${replace(n["metadata"]["mpris:length"] % 60000000 / 1000000, "\\..*", "") < 10 ? '0${replace(n["metadata"]["mpris:length"] % 60000000 / 1000000, "\\..*", "")}' : '${replace(n["metadata"]["mpris:length"] % 60000000 / 1000000, "\\..*", "")}'}"
+									)
+								)
+								(box :hexpand true)
+							)
+							(box :height 10)
 						)
 					)
-					(box
-						(eventbox						
-							(label :text "${n.shuffle_status}")
-						)
-						(eventbox)
-						(eventbox)
-						(eventbox)
-						(eventbox)
-						(eventbox)
-						(eventbox
-							(label :text "${n.loop_status}")
-						)
-
-					)
-					(label :text "${n.identity}")
 				)
 			)
 		)
 	)
 )
 
+;; ── SETUP ───────────────────────────────────────────────────────────
 (defwidget mediaPlayer []
 	(box
 		:class "bg-transparent widgetText margin-bottom-8"
@@ -72,9 +146,11 @@
 			:hexpand true
 			:class "inverse-corner-top-left-10"
 		)
+
+		;; widget content
 		(box
 			:class "bg round-corners-bottom shadow-bottom"
-			:width 500
+			:width 600
 			(mediaContent)
 		)
 		;; inverse corner box
@@ -84,10 +160,11 @@
 		)
 	)
 )
+
 (defwindow mediaPlayer
 	:geometry (geometry
 		:x "200px"
-		:width "540px"
+		:width "640px"
 		:height "200px"
 		:anchor "top left"
 	)
