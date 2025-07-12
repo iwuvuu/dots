@@ -161,7 +161,7 @@
 	)
 )
 
-(defwindow mediaPlayer
+(defwindow popup-mediaPlayer
 	:geometry (geometry
 		:x "200px"
 		:width "640px"

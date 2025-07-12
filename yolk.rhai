@@ -24,9 +24,9 @@ export let eggs = #{
 		templates: ["**/*.scss"],
 		enabled: true,
 	},
-	ags: #{
-		targets: "~/.config/ags",
-		templates: ["*.ts","*.scss","widget/*.tsx"],
+	quickshell: #{
+		targets: "~/.config/quickshell",
+		templates: ["**/*.qml"],
 		enabled: true,
 	}
 };

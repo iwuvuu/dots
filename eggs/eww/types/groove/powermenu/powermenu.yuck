@@ -94,7 +94,7 @@
 					:width 70
 					(eventbox :class "hover round-corners"
 						(button
-							:onclick "eww close powermenu && eww update pwrState=false && eww update pwrToggle=false"
+							:onclick "eww close popup-powermenu && eww update pwrState=false && eww update pwrToggle=false"
 							(label :text "Nah")
 						)
 					)
@@ -129,7 +129,7 @@
 
 ;; ── WINDOWs ─────────────────────────────────────────────────────────
 
-(defwindow powermenu
+(defwindow popup-powermenu
 	:geometry (geometry
 		:width "350px"
 		:anchor "top right"

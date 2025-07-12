@@ -1,3 +1,5 @@
+(defvar closePopup "~/.local/bin/toggle-eww-popup.sh")
+
 ;; ── WIDGETS ─────────────────────────────────────────────────────────
 
 ;; App launcher
@@ -7,7 +9,7 @@
   (box :width 35
     (eventbox :cursor "pointer" :class "hover"
 			;:onclick "${appToggle == "off" ? rofi : "eww update appToggle='off' && killall rofi"}"
-			:onclick "eww open appLauncher --screen ${monitor}"
+			:onclick "${closePopup} && eww open popup-appLauncher --screen ${monitor}"
       (label :text "󰣇" :class "singleIcon blue")
     )
   )
@@ -79,7 +81,7 @@
     (eventbox
 			:class "hover"
 			:cursor "pointer"
-			:onclick "eww open mediaPlayer --screen ${monitor} --toggle"
+			:onclick "${closePopup} && eww open popup-mediaPlayer --screen ${monitor} --toggle"
       (box 
 				:class "widgetText"
 				:space-evenly false
@@ -231,7 +233,7 @@
           )
         )
         (revealer :transition "slideleft" :reveal brightnessToggle :duration "550ms"
-            (scale :mix 0 :max 256 :orientation "h" :flipped false :halign "center" 
+            (scale :mix 0 :max 65535 :orientation "h" :flipped false :halign "center" 
             :value {current-brightness}
             :onchange "brightnessctl s {}"
             )
@@ -287,8 +289,8 @@
 			:cursor "pointer" 
 			:class "${pwrState == false ? 'hover' : 'active'}"
 			(button
-				:onclick "${pwrState == false ? 'bash ~/.config/eww/scripts/powermenu.sh --${monitor} && eww update pwrState=true' : 
-					'eww close powermenu && eww update pwrState=false && eww update pwrToggle=false'
+				:onclick "${pwrState == false ? '${closePopup} && bash ~/.config/eww/scripts/powermenu.sh --${monitor} && eww update pwrState="true"' : 
+					'eww close popup-powermenu && eww update pwrState="false"'
 				}"
 				(label 
 					:text "⏻" 

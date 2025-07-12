@@ -1,0 +1,59 @@
+(deflisten wallpaperData :initial "[]" "~/.local/bin/eww_wallpaper.sh")
+(defwidget wallpaperContent []
+	(box
+		(label :text "${wallpaperData}")
+		(scroll
+		(box :orientation "v"
+			:vscroll true
+		(for n in wallpaperData
+			(box
+				:orientation "h"
+				:space-evenly false
+				(label :text "${n["path"]}")
+				(image
+					:path "${n["path"]}"
+					:image_width 50
+				)
+			)
+		)
+			)
+		)
+	)
+)
+
+;; ── SETUP ───────────────────────────────────────────────────────────
+(defwidget wallpaperWidget []
+	(box
+		:class "bg-transparent widgetText margin-bottom-8"
+		:space-evenly false
+		;; inverse corner box
+		(box
+			:hexpand true
+			:class "inverse-corner-top-left-10"
+		)
+
+		;; widget content
+		(box
+			:class "bg round-corners-bottom shadow-bottom"
+			:width 800
+			(wallpaperContent)
+		)
+		;; inverse corner box
+		(box
+			:hexpand true
+			:class "inverse-corner-top-right-10"
+		)
+	)
+)
+
+(defwindow popup-wallpaper
+	:geometry (geometry
+		:width "840px"
+		:height "600px"
+		:anchor "top center"
+	)
+	:stacking "fg"
+	:exclusive false
+	:namespace "popup"
+	(wallpaperWidget)
+)

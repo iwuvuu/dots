@@ -1,0 +1,17 @@
+(defwidget animeViewer []
+	(box :class "bg"
+		(label :text "test")
+	)
+)
+
+(defwindow animeViewer 
+	:geometry (geometry
+		:width "640px"
+		:height "200px"
+		:anchor "center center"
+	)
+	:stacking "fg"
+	:exclusive false
+	:namespace "popup"
+	(animeViewer)
+)

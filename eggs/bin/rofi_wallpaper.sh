@@ -33,7 +33,7 @@ permanent=$(echo -e "Yes\nNo" | rofi -dmenu -config $theme_permanent -me-select-
 }
 
 set_wall_hyprland(){
-permanent=$(echo -e "Yes\nNo" | rofi -dmenu -config $theme_permanent -me-select-entry "MousePrimary" -me-accept-entry "!MousePrimary" -p "Set the wallpaper permanently?")
+permanent=$(echo -e "Yes\nNo" | rofi -dmenu -config $theme_permanent -kb-custom-1 "Super+Shift+w" -me-select-entry "MousePrimary" -me-accept-entry "!MousePrimary" -p "Set the wallpaper permanently?")
    if [[ $permanent == "No" ]]; then
       hyprctl hyprpaper preload $dir$wallpaper && hyprctl hyprpaper wallpaper , $dir$wallpaper
 			hyprctl hyprpaper unload all
@@ -47,3 +47,4 @@ permanent=$(echo -e "Yes\nNo" | rofi -dmenu -config $theme_permanent -me-select-
 }
 
 select_wall
+echo $wallpaper

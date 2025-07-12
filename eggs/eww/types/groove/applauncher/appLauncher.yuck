@@ -32,7 +32,7 @@
 							(for s in currentApps
 								(eventbox
 									:class "hover-no-anim"
-									:onclick "bash ~/.config/eww/scripts/launch-app.sh '${s.executable}' '${s.name}' && eww close appLauncher && eww update searchTerm=''"
+									:onclick "bash ~/.config/eww/scripts/launch-app.sh '${s.executable}' '${s.name}' && eww close popup-appLauncher && eww update searchTerm=''"
 									(box
 										:orientation "h"
 										:space-evenly false
@@ -55,7 +55,7 @@
 							(for i in allApps
 								(eventbox
 									:class "hover"
-									:onclick "bash ~/.config/eww/scripts/launch-app.sh '${i.executable}' '${i.name}' && eww close appLauncher && eww update searchTerm=''"
+									:onclick "bash ~/.config/eww/scripts/launch-app.sh '${i.executable}' '${i.name}' && eww close popup-appLauncher && eww update searchTerm=''"
 									(box
 										:orientation "h"
 										:space-evenly false
@@ -98,12 +98,12 @@
 					(input
 						:value ""
 						:onchange "eww update searchTerm={}"
-						:onaccept "astal-apps -l {} && eww close appLauncher && eww update searchTerm=''"
+						:onaccept "astal-apps -l {} && eww close popup-appLauncher && eww update searchTerm=''"
 						:hexpand true
 					)
 					(button
 						:class "red hover-icon margin-right-10"
-						:onclick "eww close appLauncher"
+						:onclick "eww close popup-appLauncher"
 						:halign "end"
 						(label :text "")
 					)
@@ -122,7 +122,7 @@
 
 ;; ── WINDOWs ─────────────────────────────────────────────────────────
 
-(defwindow appLauncher
+(defwindow popup-appLauncher
 	:geometry (geometry
 		:width "370px"
 		:height "200px"
